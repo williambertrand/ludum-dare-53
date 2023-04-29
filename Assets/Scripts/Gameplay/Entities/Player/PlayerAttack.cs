@@ -61,10 +61,13 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private float comboHangTime;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         attackState = new Stack<AttackInput>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -84,9 +87,15 @@ public class PlayerAttack : MonoBehaviour
     {
         lastAttackTime = Time.time;
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
+
+        if (checkAttackStateAgainstBasicCombo())
+        {
+            // Execute combo
+            animator.SetTrigger("basicCombo");
+        }
     }
 
-    private bool checkAttackStateAgainstCombos()
+    private bool checkAttackStateAgainstBasicCombo()
     {
         var i = 0;
         foreach(AttackInput input in attackState)
