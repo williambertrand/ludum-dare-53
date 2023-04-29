@@ -53,6 +53,8 @@ public class PlayerAttack : MonoBehaviour
     private float attackCooldown;
     private float lastAttackTime;
 
+    [SerializeField] private Combo basicCombo;
+
 
     // Hold current list of active attacks to determine if we've hit a combo
     private Stack<AttackInput> attackState;
@@ -84,9 +86,18 @@ public class PlayerAttack : MonoBehaviour
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
     }
 
-    private void checkAttackStateAgainstCombos()
+    private bool checkAttackStateAgainstCombos()
     {
-
+        var i = 0;
+        foreach(AttackInput input in attackState)
+        {
+            if(basicCombo.attackTypes[i] != input.Type)
+            {
+                return false;
+            }
+            i++;
+        }
+        return true;
     }
 
 
