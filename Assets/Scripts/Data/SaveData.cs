@@ -16,12 +16,14 @@ public static class SaveData
     {
         if (!DoesFileExist())
         {
-            Debug.LogError("No File Exists");
+            Debug.LogError("No File Exists, Adding key to create file");
+            Save<T>(key, default);
             return default;
         }
         if(!DoesKeyExist(key))
         {
-            Debug.LogError($"No key: {key} exists");
+            Debug.LogError($"No key: {key} exists, Creating a default value");
+            Save<T>(key, default);
             return default;
         }
 

@@ -22,7 +22,7 @@ namespace OTBG.Audio
             else audioSource.pitch = 1f;
             audioSource.loop = clipSO.isLooping;
             audioSource.volume = clipSO.volume;
-            audioSource.clip = clipSO.clip;
+            audioSource.clip = clipSO.clips[Random.Range(0, clipSO.clips.Length)];
             audioSource.Play();
         }
 
@@ -32,7 +32,7 @@ namespace OTBG.Audio
                 audioSource.pitch = 1f + Random.Range(-clipSO.pitchVariance, clipSO.pitchVariance);
             else audioSource.pitch = 1f;
 
-            audioSource.PlayOneShot(clipSO.clip, clipSO.volume);
+            audioSource.PlayOneShot(clipSO.clips[Random.Range(0, clipSO.clips.Length)], clipSO.volume);
 
         }
 

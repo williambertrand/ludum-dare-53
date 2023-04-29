@@ -17,8 +17,8 @@ namespace OTBG.Audio
         {
             Initialise();
 
-            mixer.SetFloat(BGM_VOLUME, SaveData.Load<float>("BGMVolume"));
-            mixer.SetFloat(SFX_VOLUME, SaveData.Load<float>("SFXVolume"));
+            mixer.SetFloat(BGM_VOLUME, SaveData.Load<float>(BGM_VOLUME));
+            mixer.SetFloat(SFX_VOLUME, SaveData.Load<float>(SFX_VOLUME));
         }
 
         public void Initialise()
@@ -50,6 +50,24 @@ namespace OTBG.Audio
                 soundEffectsManager.PlayAudioClipOneShot(id);
             else soundEffectsManager.PlayAudioClip(id);
         }
+
+        public void UpdateMixers()
+        {
+            mixer.SetFloat(BGM_VOLUME, SaveData.Load<float>("BGMVolume"));
+            mixer.SetFloat(SFX_VOLUME, SaveData.Load<float>("SFXVolume"));
+        }
+        public void SaveBGM(float volume)
+        {
+            SaveData.Save(BGM_VOLUME, volume);
+            UpdateMixers();
+        }
+
+        public void SaveSFX(float volume)
+        {
+            SaveData.Save(SFX_VOLUME, volume);
+            UpdateMixers();
+        }
+
     }
 }
 
