@@ -10,7 +10,7 @@ namespace OTBG.Audio
     {
         public string id;
         public string constName;
-        public AudioClip clip;
+        public AudioClip[] clips;
         public bool isLooping;
         public bool isRandomPitch;
         [ShowIf("isRandomPitch")]
