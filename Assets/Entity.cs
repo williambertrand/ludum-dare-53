@@ -24,6 +24,11 @@ public class Entity : MonoBehaviour
         Initialise();
     }
 
+    private void OnDisable()
+    {
+        Unsubscribe();
+    }
+
     public virtual void Initialise()
     {
         References();
@@ -43,7 +48,7 @@ public class Entity : MonoBehaviour
     public void Initialisation()
     {
         healthController.Initialise();
-
+        Subscribe();
     }
 
     public void Subscribe()
