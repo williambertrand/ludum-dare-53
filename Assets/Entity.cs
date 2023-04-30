@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
 {
     public event Action<Entity> OnSpawn;
     public event Action<Entity> OnDeath;
+    public static event Action<Entity> OnDamaged;
 
     public EntityType EntityType;
 
@@ -54,14 +55,22 @@ public class Entity : MonoBehaviour
     public void Subscribe()
     {
         healthController.OnHealthChanged += HealthController_OnHealthChanged;
+        healthController.OnDamaged += HealthController_OnDamaged;
+    }
+
+    private void HealthController_OnDamaged(DamageData obj)
+    {
+        OnDamaged?.Invoke(this);
     }
 
     public void Unsubscribe() 
     { 
         healthController.OnHealthChanged -= HealthController_OnHealthChanged;
+        healthController.OnDamaged -= HealthController_OnDamaged;
+
     }
 
-    private void HealthController_OnHealthChanged(ValueChange obj)
+    public virtual void HealthController_OnHealthChanged(ValueChange obj)
     {
         if (obj.value <= 0)
             OnDeath?.Invoke(this);

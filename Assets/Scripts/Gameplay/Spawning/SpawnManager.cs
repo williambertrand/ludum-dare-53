@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using OTBG.Utility;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine.Events;
 
 public enum EntityType
@@ -12,22 +13,29 @@ public enum EntityType
 
 public class SpawnManager : MonoSingleton<SpawnManager>
 {
+    public static event Action<SpawnArea> OnAreaStarted;
+    public static event Action<SpawnArea> OnAreaFinished;
+
+
     public SpawnArea currentArea;
 
     [Button]
     public void StartSpawnArea(SpawnArea spawnArea)
     {
         //TODO Lock Camera to not go passed a point.
-        //TODO Make the spawn area start spawning units until all dead.
+        //TODO Make the spawn area start spawning units until all dead. (DONE)
 
         currentArea = spawnArea;
         spawnArea.StartWave();
+        OnAreaStarted?.Invoke(currentArea);
     }
 
     public void FinishSpawnArea()
     {
         if (currentArea == null)
             return;
+
+        OnAreaFinished?.Invoke(currentArea);
 
         currentArea = null;
 

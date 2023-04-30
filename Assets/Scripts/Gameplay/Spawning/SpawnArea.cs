@@ -7,6 +7,8 @@ using Sirenix.OdinInspector;
 
 public class SpawnArea : MonoBehaviour
 {
+    public SpawnAreaRestrictions restrictions;
+
     public List<Entity> spawnedEntities = new List<Entity>();
     public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 
@@ -16,10 +18,17 @@ public class SpawnArea : MonoBehaviour
 
     private Coroutine coroutine_StartWaveLoop;
 
+    private void Awake()
+    {
+        restrictions = GetComponent<SpawnAreaRestrictions>();
+    }
+
     public void StartWave()
     {
         if(coroutine_StartWaveLoop == null)
             coroutine_StartWaveLoop = StartCoroutine(StartWaveLoop());
+
+        restrictions.RestrictionTrigger_OnTriggerEnterEvent(new Collider2D());
     }
 
     public void FinishWave()

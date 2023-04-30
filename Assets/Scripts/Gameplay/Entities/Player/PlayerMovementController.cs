@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using OTBG.Utility;
+using Sirenix.OdinInspector;
 
 public enum PlayerState
 {
@@ -10,41 +11,32 @@ public enum PlayerState
     Stunned
 }
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : MonoSingleton<PlayerMovementController>
 {
+    [FoldoutGroup("References"), SerializeField] private Animator animator;
+    [FoldoutGroup("References"), SerializeField] private Rigidbody2D rigidBody;
+    [FoldoutGroup("References"), SerializeField] private PlayerAttack playerAttack;
 
-    public static PlayerMovementController Instance;
+    [FoldoutGroup("Movement")] public PlayerState currentState;
+    [FoldoutGroup("Movement"),SerializeField] private float moveSpeed;
+    [FoldoutGroup("Movement"),SerializeField] private float verticalFactor;
+    [FoldoutGroup("Movement"),SerializeField] private float startingRollSpeed;
+    [FoldoutGroup("Movement"), SerializeField] private float rollDropOffFactor;
 
-    public PlayerState currentState;
-
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float verticalFactor;
-    [SerializeField] private float startingRollSpeed;
-    [SerializeField] private float rollDropOffFactor;
-    private float rollSpeed; // represents current speed while rolling, drops off back down to match movespeed
-
-    [SerializeField]
-    private Animator animator;
-
-    private Rigidbody2D rigidBody;
+    private float rollSpeed; // represents current speed while rolling, drops off back down to match movespeed   
     private Vector3 moveDir;
     private Vector3 rollDir;
 
-    private bool facingRight;
+    private bool isFacingRight;
 
     private void Awake()
     {
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-
-        facingRight = true;
-        currentState = PlayerState.Normal;
-
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerAttack = GetComponent<PlayerAttack>();
+
+        isFacingRight = true;
+        currentState = PlayerState.Normal;
     }
 
     // Update is called once per frame
@@ -53,61 +45,57 @@ public class PlayerMovementController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.InRoll:
-                // ignore inputs while rolling, just handle speed
-                rollSpeed -= rollSpeed * rollDropOffFactor * Time.deltaTime;
-                float rollSpeedMinimum = moveSpeed;
-                if(rollSpeed < rollSpeedMinimum)
-                {
-                    currentState = PlayerState.Normal;
-                }
+                InRoll();
                 break;
             case PlayerState.Normal:
-                float moveX = 0f;
-                float moveY = 0f;
-
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-                {
-                    moveY = 1;
-                }
-                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-                {
-                    moveX = -1;
-                }
-                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-                {
-                    moveY = -1;
-                }
-                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-                {
-                    moveX = 1;
-                }
-                moveDir = new Vector3(moveX, moveY).normalized;
-                moveDir.y *= verticalFactor;
-
-                animator.SetFloat("speed", Mathf.Abs(moveX));
-
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    rollSpeed = startingRollSpeed;
-                    rollDir = moveDir;
-                    currentState = PlayerState.InRoll;
-                }
-
-                // If the input is moving the player right and the player is facing left...
-                if (moveX > 0 && !facingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
-                // Otherwise if the input is moving the player left and the player is facing right...
-                else if (moveX < 0 && facingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
+                Normal();
                 break;
         }
         
+    }
+
+    public void InRoll()
+    {
+        // ignore inputs while rolling, just handle speed
+        rollSpeed -= rollSpeed * rollDropOffFactor * Time.deltaTime;
+        float rollSpeedMinimum = moveSpeed;
+        if (rollSpeed < rollSpeedMinimum)
+        {
+            currentState = PlayerState.Normal;
+        }
+    }
+
+    public void Normal()
+    {
+        if (!CanMove())
+            return;
+        //These will get both the WASD and Arrow keys respectively, Better than giant If statement
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+
+        moveDir = new Vector3(moveX, moveY).normalized;
+        moveDir.y *= verticalFactor;
+
+        animator.SetFloat("speed", Mathf.Abs(moveX));
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            rollSpeed = startingRollSpeed;
+            rollDir = moveDir;
+            currentState = PlayerState.InRoll;
+        }
+
+        if (moveX > 0) isFacingRight = true;
+        else if (moveX < 0) isFacingRight = false;
+
+        Flip();
+    }
+
+    public bool CanMove()
+    {
+        //Could you implement something like this in the attackController. This way we can cleanly organise it :)
+        //if (playerAttack.isPlayerAttacking) return false;
+        return true;
     }
 
     private void FixedUpdate()
@@ -123,15 +111,13 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-
+    //Tidied it up so the flip is constantly running, it's not going to impact performance.
+    //Saves on having to write more code above in the Normal Function
     private void Flip()
     {
-        // Switch the way the player is labelled as facing.
-        facingRight = !facingRight;
-
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
+        theScale.x = isFacingRight ? 1 : -1;
         transform.localScale = theScale;
     }
 }
