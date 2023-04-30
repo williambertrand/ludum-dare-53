@@ -81,6 +81,9 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         moveDir = new Vector3(moveX, moveY).normalized;
         moveDir.y *= verticalFactor;
 
+        if(animator != null)
+            animator.SetFloat("speed", Mathf.Abs(moveDir.magnitude));
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             rollSpeed = startingRollSpeed;
@@ -109,11 +112,13 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         {
             case PlayerState.Normal:
                 rigidBody.velocity = moveDir * moveSpeed;
-                Debug.Log("Speed: " + rigidBody.velocity.sqrMagnitude);
-                animator.SetFloat("speed", rigidBody.velocity.sqrMagnitude);
+                // animator.SetFloat("speed", rigidBody.velocity.sqrMagnitude);
+                if(rigidBody != null)
+                    rigidBody.velocity = moveDir * moveSpeed;
                 break;
             case PlayerState.InRoll:
-                rigidBody.velocity = rollDir *rollSpeed;
+                if(rigidBody != null)
+                    rigidBody.velocity = rollDir *rollSpeed;
                 break;
         }
     }

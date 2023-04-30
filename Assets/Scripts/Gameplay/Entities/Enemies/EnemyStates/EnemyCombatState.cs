@@ -20,6 +20,7 @@ public class EnemyCombatState : EnemyState
         if (self.target == null)
         {
             Debug.LogError("No target in combat state");
+            return;
         }
 
         bool attackIsCoolingDown = Time.time - self.lastAttack < self.stats.attackSpeed;
