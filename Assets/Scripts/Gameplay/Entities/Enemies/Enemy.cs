@@ -15,8 +15,9 @@ public class Enemy : Entity
     [FoldoutGroup("References")] public EnemyStateHandler stateMachine;
     [FoldoutGroup("References")] public EnemyIdleState idleState;
     [FoldoutGroup("References")] public EnemySeekingState seekingState; // Seeking: moving to player
-    [FoldoutGroup("References")] public EnemyCombatState attackState;
+    [FoldoutGroup("References")] public EnemyCombatState combatState;
     [FoldoutGroup("References")] public EnemyIsAttackingState isAttackingState;
+    [FoldoutGroup("References")] public EnemyHurtState hurtState;
 
     private Animator animator;
     private EnemyMovement movement;
@@ -32,9 +33,10 @@ public class Enemy : Entity
     {
         stateMachine = new EnemyStateHandler();
         seekingState = new EnemySeekingState(this, stateMachine, animator);
-        attackState = new EnemyCombatState(this, stateMachine, animator);
+        combatState = new EnemyCombatState(this, stateMachine, animator);
         isAttackingState = new EnemyIsAttackingState(this, stateMachine, animator);
         idleState = new EnemyIdleState(this, stateMachine, animator);
+        hurtState = new EnemyHurtState(this, stateMachine, animator);
         stateMachine.Initialize(idleState);
     }
 
@@ -74,5 +76,20 @@ public class Enemy : Entity
     public void SetTarget(GameObject t)
     {
         this.target = t;
+    }
+    
+    private void OnEnable()
+    {
+        Entity.OnDamaged += Enemy_OnDamaged;
+    }   
+
+    private void OnDisable()
+    {
+        Entity.OnDamaged -= Enemy_OnDamaged;
+    }
+
+    private void Enemy_OnDamaged(Entity e, DamageData d)
+    {
+        stateMachine.ChangeState(hurtState);
     }
 }

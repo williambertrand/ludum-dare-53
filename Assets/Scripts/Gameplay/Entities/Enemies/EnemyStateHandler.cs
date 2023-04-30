@@ -21,25 +21,4 @@ public class EnemyStateHandler
         CurrentState = newState;
         newState.Enter();
     }
-    
-    public void PushState(EnemyState newState)
-    {
-        CurrentState.Pause();
-        stateStack.Push(CurrentState);
-        CurrentState = newState;
-        newState.Enter();
-    }
-
-    public void PopState()
-    {
-        CurrentState.Exit();
-
-        if (stateStack.Count == 0)
-        {
-            throw new Exception("Trying to pop from an empty state stack");
-        }
-        EnemyState prevState = stateStack.Pop();
-        CurrentState = prevState;
-        prevState.Resume();
-    }
 }

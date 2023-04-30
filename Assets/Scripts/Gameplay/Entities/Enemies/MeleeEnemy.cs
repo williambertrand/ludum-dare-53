@@ -31,7 +31,7 @@ public class MeleeEnemy : Enemy
 
             if (damagable.IsAlly(this.EntityType) || damagable.IsDead())
                 continue;
-            
+
             DamageData data = new DamageData(); 
             data.damageDealer = transform;
             data.target = c.transform;

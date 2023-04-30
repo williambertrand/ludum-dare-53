@@ -259,6 +259,7 @@ MonoBehaviour:
     attackRange: 1
     attackSpeed: 2
     attackDuration: 1
+    stunRecoveryTime: 1
   moveDest: {x: 0, y: 0, z: 0}
   lastAttack: 0
   attackPoint: {fileID: 7404724989931027121}

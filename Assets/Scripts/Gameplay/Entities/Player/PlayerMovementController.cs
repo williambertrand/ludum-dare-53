@@ -54,7 +54,12 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         
     }
 
-    public void InRoll()
+    private void Stunned()
+    {
+        
+    }
+
+    private void InRoll()
     {
         // ignore inputs while rolling, just handle speed
         rollSpeed -= rollSpeed * rollDropOffFactor * Time.deltaTime;
@@ -65,7 +70,7 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         }
     }
 
-    public void Normal()
+    private void Normal()
     {
         if (!CanMove())
             return;

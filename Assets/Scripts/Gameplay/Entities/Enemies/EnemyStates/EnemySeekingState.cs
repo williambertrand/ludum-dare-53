@@ -52,7 +52,7 @@ public class EnemySeekingState : EnemyState
         float playerDist = self.transform.position.DistanceSquared(self.target.transform.position);
         if (playerDist <= self.stats.attackRange * self.stats.attackRange)
         {
-            self.stateMachine.ChangeState(self.attackState);
+            self.stateMachine.ChangeState(self.combatState);
         }
         base.Update();
     }

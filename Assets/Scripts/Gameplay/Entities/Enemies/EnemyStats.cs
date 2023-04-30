@@ -12,4 +12,5 @@ public struct EnemyStats
     public float attackRange;
     public float attackSpeed;
     public float attackDuration;
+    public float stunRecoveryTime;
 }

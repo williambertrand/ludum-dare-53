@@ -70,7 +70,6 @@ public class PlayerAttack : MonoBehaviour
         {
             // Execute combo
             _debugCurrentStateString = "Hit Basic Combo!";
-            animator.SetTrigger("basicCombo");
             HandleAttack(basicCombo.damage);
             attackState.Clear();
         } else

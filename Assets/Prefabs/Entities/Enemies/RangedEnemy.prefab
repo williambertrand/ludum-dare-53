@@ -132,12 +132,12 @@ MonoBehaviour:
     attackRange: 5
     attackSpeed: 2
     attackDuration: 2
+    stunRecoveryTime: 1
   moveDest: {x: 0, y: 0, z: 0}
   lastAttack: 0
   attackPoint: {fileID: 1279212580712190370}
   projectile: {fileID: 902980025112102751, guid: e5e1f81f2724242aa983d29954c92dc4, type: 3}
   shootVel: 3
-  attackDamage: 1
 --- !u!114 &2491146309485395504
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ public class EntityHealthController : MonoBehaviour, IDamageable
     [FoldoutGroup("Stats"), SerializeField]
     private float _maxHealth;
 
+    private bool _isInvulnerable;
+
     //Call this from Spawner
     public void Initialise()
     {
@@ -58,10 +60,14 @@ public class EntityHealthController : MonoBehaviour, IDamageable
 
     public bool IsInvunerable()
     {
-        //TODO Make invunerability frames later
-        return false;
-
+        return _isInvulnerable;
     }
+
+    public void SetInvulnerable(bool isInvulnerable)
+    {
+        this._isInvulnerable = isInvulnerable;
+    }
+    
 
     public bool IsAlly(EntityType type)
     {
