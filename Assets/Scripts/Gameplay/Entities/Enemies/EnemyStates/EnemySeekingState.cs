@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using extensions;
@@ -8,6 +9,8 @@ public class EnemySeekingState : EnemyState
     protected Animator animator;
     protected Enemy self;
 
+    private float randOffsetY;
+
     public EnemySeekingState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
     {
         this.animator = animator;
@@ -17,10 +20,7 @@ public class EnemySeekingState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        if (PlayerMovementController.Instance != null)
-        {
-            self.target = PlayerMovementController.Instance.gameObject;
-        }
+        randOffsetY = UnityEngine.Random.Range(0.2f, 1.5f);
     }
 
     public override void Exit()
@@ -60,10 +60,9 @@ public class EnemySeekingState : EnemyState
     private Vector3 getDesiredAttackPosition()
     {
         Vector3 targetPos = self.target.transform.position;
-
         Vector3 directionToTarget = (self.transform.position - targetPos).normalized;
 
-        return (self.target.transform.position + new Vector3(directionToTarget.x, 0.5f * directionToTarget.y));
+        return (self.target.transform.position + new Vector3(directionToTarget.x, randOffsetY * directionToTarget.y));
     }
 }
 
