@@ -10,6 +10,7 @@ public class Enemy : Entity
     [FoldoutGroup("Enemy Stats")] public EnemyStats stats;
     [FoldoutGroup("Enemy Stats")] public Vector3 moveDest;
     [FoldoutGroup("Enemy Stats")] public float lastAttack;
+    [FoldoutGroup("Enemy Stats"), SerializeField] private Transform attackPoint;
 
     [FoldoutGroup("References")] public EnemyStateHandler stateMachine;
     [FoldoutGroup("References")] public EnemySeekingState seekingState;
@@ -36,9 +37,10 @@ public class Enemy : Entity
 
     void Update()
     {
-        if (stateMachine == null || stateMachine.CurrentState == null)
+        if (stateMachine?.CurrentState == null)
         {
             Debug.LogError("NO Current state");
+            return;
         }
         stateMachine.CurrentState.Update();
     }
@@ -58,6 +60,25 @@ public class Enemy : Entity
     public void Attack()
     {
         lastAttack = Time.deltaTime;
+        // Detect enemies in range of attack
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
+
+        // Apply damge to enemies
+        foreach (Collider2D c in hitObjects)
+        {
+            IDamageable damagable = c.GetComponent<IDamageable>();
+
+            if (damagable == null) continue;
+
+            if (damagable.IsAlly(this.EntityType) || damagable.IsDead())
+                continue;
+            
+            DamageData data = new DamageData(); 
+            data.damageDealer = transform;
+            data.target = c.transform;
+            data.damageDealt = stats.damage;
+            damagable.TakeDamage(data);
+        }
     }
     private void OnDrawGizmos()
     {
