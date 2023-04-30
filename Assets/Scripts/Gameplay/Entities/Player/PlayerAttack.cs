@@ -57,16 +57,39 @@ public class PlayerAttack : MonoBehaviour
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
         _debugCurrentStateString += AttackType.Basic.ToString() + ", ";
 
+        handleAnimationForAttack();
+
         if (checkAttackStateAgainstBasicCombo())
         {
             // Execute combo
             _debugCurrentStateString = "Hit Basic Combo!";
             animator.SetTrigger("basicCombo");
             handleAttack(basicCombo.damage);
+            attackState.Clear();
         } else
         {
             handleAttack(basicAttackDamage);
         }
+    }
+
+    private void handleAnimationForAttack()
+    {
+        if (attackState.Count == 1)
+        {
+            animator.SetTrigger("attack");
+            return;
+        }
+        else if (attackState.Count == 2)
+        {
+            animator.SetTrigger("attack2");
+            return;
+        }
+        else
+        {
+            //Woah nice job, hit that combo!
+            animator.SetTrigger("attack3");
+        }
+
     }
 
     private void handleAttack(int damage)
@@ -77,14 +100,14 @@ public class PlayerAttack : MonoBehaviour
         // Apply damge to enemies
         foreach (Collider2D c in hitEnemies)
         {
-            TestEnemy e = c.GetComponent<TestEnemy>();
-            if (e != null)
+            EntityHealthController enemyHealth = c.GetComponent<EntityHealthController>();
+            if (enemyHealth != null)
             {
                 DamageData data = new DamageData();
                 data.damageDealer = transform;
-                data.target = e.transform;
+                data.target = c.transform;
                 data.damageDealt = damage;
-                e.TakeDamage(data);
+                enemyHealth.TakeDamage(data);
             }
         }
     }

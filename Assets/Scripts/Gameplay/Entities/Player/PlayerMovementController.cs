@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OTBG.Utility;
 
 public enum PlayerState
 {
@@ -12,11 +13,14 @@ public enum PlayerState
 public class PlayerMovementController : MonoBehaviour
 {
 
+    public static PlayerMovementController Instance;
+
     public PlayerState currentState;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float verticalFactor;
     [SerializeField] private float startingRollSpeed;
+    [SerializeField] private float rollDropOffFactor;
     private float rollSpeed; // represents current speed while rolling, drops off back down to match movespeed
 
     [SerializeField]
@@ -30,6 +34,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
         facingRight = true;
         currentState = PlayerState.Normal;
 
@@ -44,8 +54,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             case PlayerState.InRoll:
                 // ignore inputs while rolling, just handle speed
-                float rollSpeedDropoff = 3f;
-                rollSpeed -= rollSpeed * rollSpeedDropoff * Time.deltaTime;
+                rollSpeed -= rollSpeed * rollDropOffFactor * Time.deltaTime;
                 float rollSpeedMinimum = moveSpeed;
                 if(rollSpeed < rollSpeedMinimum)
                 {
@@ -77,7 +86,7 @@ public class PlayerMovementController : MonoBehaviour
 
                 animator.SetFloat("speed", Mathf.Abs(moveX));
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     rollSpeed = startingRollSpeed;
                     rollDir = moveDir;
