@@ -22,6 +22,7 @@ public class Enemy : Entity
 
     private void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
         movement = GetComponent<EnemyMovement>();
     }
