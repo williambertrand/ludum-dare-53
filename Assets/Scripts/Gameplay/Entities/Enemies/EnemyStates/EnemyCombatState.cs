@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using extensions;
 
-public class EnemyAttackState : EnemyState
+public class EnemyCombatState : EnemyState
 {
 
     protected Animator animator;
     protected Enemy self;
 
-    public EnemyAttackState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
+    public EnemyCombatState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
     {
         this.animator = animator;
         this.self = enemy;
