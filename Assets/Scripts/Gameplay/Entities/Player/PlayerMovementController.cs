@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OTBG.Utility;
 
 public enum PlayerState
 {
@@ -11,6 +12,8 @@ public enum PlayerState
 
 public class PlayerMovementController : MonoBehaviour
 {
+
+    public static PlayerMovementController Instance;
 
     public PlayerState currentState;
 
@@ -30,6 +33,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
         facingRight = true;
         currentState = PlayerState.Normal;
 

@@ -57,6 +57,8 @@ public class PlayerAttack : MonoBehaviour
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
         _debugCurrentStateString += AttackType.Basic.ToString() + ", ";
 
+        handleAnimationForAttack();
+
         if (checkAttackStateAgainstBasicCombo())
         {
             // Execute combo
@@ -67,6 +69,28 @@ public class PlayerAttack : MonoBehaviour
         {
             handleAttack(basicAttackDamage);
         }
+    }
+
+    private void handleAnimationForAttack()
+    {
+        if (attackState.Count == 1)
+        {
+            Debug.Log("ATTACK BASIC ANIM 1!");
+            animator.SetTrigger("attack");
+            return;
+        }
+        else if (attackState.Count == 2)
+        {
+            Debug.Log("ATTACK ANIM 2!");
+            animator.SetTrigger("attack2");
+            return;
+        } else
+        {
+            //Woah nice job, hit that combo!
+            Debug.Log("ATTACK ANIM 3!");
+            animator.SetTrigger("attack3");
+        }
+
     }
 
     private void handleAttack(int damage)
