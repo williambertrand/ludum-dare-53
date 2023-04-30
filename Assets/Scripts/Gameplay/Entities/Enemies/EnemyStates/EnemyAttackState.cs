@@ -22,11 +22,8 @@ public class EnemyAttackState : EnemyState
             Debug.LogError("No target in combat state");
         }
 
-        // Check if canAttack
-        Debug.Log("checking can atack: " + self.lastAttack + " / " + self.stats.attackSpeed);
-        if (Time.time - self.lastAttack < self.stats.attackSpeed) return;
-
-        Debug.Log("Can atack! ");
+        bool attackIsCoolingDown = Time.time - self.lastAttack < self.stats.attackSpeed;
+        if (attackIsCoolingDown) return;
         // Check if within attack range
         float playerDist = self.transform.position.DistanceSquared(self.target.transform.position);
         if (playerDist <= self.stats.attackRange * self.stats.attackRange)
@@ -34,6 +31,10 @@ public class EnemyAttackState : EnemyState
             Debug.Log("Attack in range, initiating!");
             self.Attack();
             self.stateMachine.ChangeState(self.isAttackingState);
+        } else
+        {
+            // Player out of range, go back to seeking
+            self.stateMachine.ChangeState(self.seekingState);
         }
         base.Update();
     }

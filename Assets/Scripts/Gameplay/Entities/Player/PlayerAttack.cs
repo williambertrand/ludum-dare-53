@@ -65,6 +65,7 @@ public class PlayerAttack : MonoBehaviour
             _debugCurrentStateString = "Hit Basic Combo!";
             animator.SetTrigger("basicCombo");
             handleAttack(basicCombo.damage);
+            attackState.Clear();
         } else
         {
             handleAttack(basicAttackDamage);
@@ -75,19 +76,17 @@ public class PlayerAttack : MonoBehaviour
     {
         if (attackState.Count == 1)
         {
-            Debug.Log("ATTACK BASIC ANIM 1!");
             animator.SetTrigger("attack");
             return;
         }
         else if (attackState.Count == 2)
         {
-            Debug.Log("ATTACK ANIM 2!");
             animator.SetTrigger("attack2");
             return;
-        } else
+        }
+        else
         {
             //Woah nice job, hit that combo!
-            Debug.Log("ATTACK ANIM 3!");
             animator.SetTrigger("attack3");
         }
 
@@ -101,14 +100,14 @@ public class PlayerAttack : MonoBehaviour
         // Apply damge to enemies
         foreach (Collider2D c in hitEnemies)
         {
-            TestEnemy e = c.GetComponent<TestEnemy>();
-            if (e != null)
+            EntityHealthController enemyHealth = c.GetComponent<EntityHealthController>();
+            if (enemyHealth != null)
             {
                 DamageData data = new DamageData();
                 data.damageDealer = transform;
-                data.target = e.transform;
+                data.target = c.transform;
                 data.damageDealt = damage;
-                e.TakeDamage(data);
+                enemyHealth.TakeDamage(data);
             }
         }
     }

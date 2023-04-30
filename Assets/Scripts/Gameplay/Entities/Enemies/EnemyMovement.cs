@@ -33,7 +33,9 @@ public class EnemyMovement : MonoBehaviour
     {
         float dX = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
         float dY = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
-        targetVelocity = new Vector2(dX, dY);
+
+        // TODO: Should players and enemies share a y speed factor?
+        targetVelocity = new Vector2(dX, dY * 0.75f);
 
         // If the input is moving the player right and the player is facing left...
         if (dX > 0 && !facingRight)

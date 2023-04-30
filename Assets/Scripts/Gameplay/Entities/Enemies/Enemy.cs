@@ -66,5 +66,4 @@ public class Enemy : MonoBehaviour
     {
         lastAttack = Time.deltaTime;
     }
-
 }
