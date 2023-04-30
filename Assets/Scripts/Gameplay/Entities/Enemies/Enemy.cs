@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
 
     [Header("Enemy Stats")]
