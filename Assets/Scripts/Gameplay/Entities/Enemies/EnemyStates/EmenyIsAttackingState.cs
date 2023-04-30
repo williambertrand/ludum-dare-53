@@ -32,7 +32,6 @@ public class EnemyIsAttackingState : EnemyState
         base.Update();
         if (Time.time - onEnter >= self.stats.attackDuration)
         {
-            // Go back to attack state once attack has completed
             stateMachine.ChangeState(self.attackState);
         }
     }
