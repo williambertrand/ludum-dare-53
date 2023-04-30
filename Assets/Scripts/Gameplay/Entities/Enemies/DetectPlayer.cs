@@ -33,7 +33,6 @@ public class DetectPlayer : MonoBehaviour
     
     private void EnemyDetection_OnTriggerEnterEvent(Collider2D obj)
     {
-        Debug.Log("on enter: " + obj.ToString());
         if (obj.CompareTag("Player"))
         {
             enemyRef.SetTarget(obj.gameObject);
