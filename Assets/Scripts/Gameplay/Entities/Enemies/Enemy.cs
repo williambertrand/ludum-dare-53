@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 
 public class Enemy : Entity
 {
+    [FoldoutGroup("Enemy Stats")] public GameObject priorityTarget;
     [FoldoutGroup("Enemy Stats")] public GameObject target;
     [FoldoutGroup("Enemy Stats")] public EnemyStats stats;
     [FoldoutGroup("Enemy Stats")] public Vector3 moveDest;
@@ -18,6 +19,8 @@ public class Enemy : Entity
     [FoldoutGroup("References")] public EnemyCombatState combatState;
     [FoldoutGroup("References")] public EnemyIsAttackingState isAttackingState;
     [FoldoutGroup("References")] public EnemyHurtState hurtState;
+    
+    
 
     private Animator animator;
     private EnemyMovement movement;
@@ -76,6 +79,13 @@ public class Enemy : Entity
     public void SetTarget(GameObject t)
     {
         this.target = t;
+    }
+
+    public GameObject GetTarget()
+    {
+        if (priorityTarget != null)
+            return priorityTarget;
+        return target;
     }
     
     private void OnEnable()

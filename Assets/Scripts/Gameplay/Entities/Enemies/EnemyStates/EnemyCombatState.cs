@@ -17,7 +17,7 @@ public class EnemyCombatState : EnemyState
 
     public override void Update()
     {
-        if (self.target == null)
+        if (self.GetTarget() == null)
         {
             Debug.LogError("No target in combat state");
             return;
@@ -26,8 +26,8 @@ public class EnemyCombatState : EnemyState
         bool attackIsCoolingDown = Time.time - self.lastAttack < self.stats.attackSpeed;
         if (attackIsCoolingDown) return;
         // Check if within attack range
-        float playerDist = self.transform.position.DistanceSquared(self.target.transform.position);
-        if (playerDist <= self.stats.attackRange * self.stats.attackRange)
+        float attackDist = self.transform.position.DistanceSquared(self.GetTarget().transform.position);
+        if (attackDist <= self.stats.attackRange * self.stats.attackRange)
         {
             self.Attack();
             self.stateMachine.ChangeState(self.isAttackingState);

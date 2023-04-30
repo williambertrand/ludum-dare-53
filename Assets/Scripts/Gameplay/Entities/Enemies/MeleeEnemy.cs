@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
+
+    public Collider2D attackCollider;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,7 @@ public class MeleeEnemy : Enemy
 
     public override void Attack()
     {
+        Debug.Log("Attack start!"); 
         lastAttack = Time.deltaTime;
         // Detect enemies in range of attack
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
@@ -39,4 +43,16 @@ public class MeleeEnemy : Enemy
             damagable.TakeDamage(data);
         }
     }
+
+    private void HandleAttack()
+    {
+        
+    }
+    
+    IEnumerator AttackAfterPrep()
+    {
+        yield return new WaitForSeconds(1);
+        HandleAttack();
+    }
+
 }
