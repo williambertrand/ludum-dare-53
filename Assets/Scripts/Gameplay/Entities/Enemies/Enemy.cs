@@ -1,22 +1,26 @@
+using System;
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
 
-//Is this for all enemies? Or is this just for the melee one? Depending on the answer
-//You'll need to change the class name to MeleeEnemy or Bandit or something :)
+
 public class Enemy : Entity
 {
+    [FoldoutGroup("Enemy Stats")] public GameObject priorityTarget;
     [FoldoutGroup("Enemy Stats")] public GameObject target;
     [FoldoutGroup("Enemy Stats")] public EnemyStats stats;
     [FoldoutGroup("Enemy Stats")] public Vector3 moveDest;
     [FoldoutGroup("Enemy Stats")] public float lastAttack;
-    [FoldoutGroup("Enemy Stats"), SerializeField] private Transform attackPoint;
+    [FoldoutGroup("Enemy Stats"), SerializeField] protected Transform attackPoint;
 
     [FoldoutGroup("References")] public EnemyStateHandler stateMachine;
     [FoldoutGroup("References")] public EnemyIdleState idleState;
     [FoldoutGroup("References")] public EnemySeekingState seekingState; // Seeking: moving to player
-    [FoldoutGroup("References")] public EnemyCombatState attackState;
+    [FoldoutGroup("References")] public EnemyCombatState combatState;
     [FoldoutGroup("References")] public EnemyIsAttackingState isAttackingState;
+    [FoldoutGroup("References")] public EnemyHurtState hurtState;
+    
+    
 
     private Animator animator;
     private EnemyMovement movement;
@@ -32,9 +36,10 @@ public class Enemy : Entity
     {
         stateMachine = new EnemyStateHandler();
         seekingState = new EnemySeekingState(this, stateMachine, animator);
-        attackState = new EnemyCombatState(this, stateMachine, animator);
+        combatState = new EnemyCombatState(this, stateMachine, animator);
         isAttackingState = new EnemyIsAttackingState(this, stateMachine, animator);
         idleState = new EnemyIdleState(this, stateMachine, animator);
+        hurtState = new EnemyHurtState(this, stateMachine, animator);
         stateMachine.Initialize(idleState);
     }
 
@@ -59,28 +64,9 @@ public class Enemy : Entity
     }
     
     // TODO: Update to use collider to be active during enemy swipe + dash at player?
-    public void Attack()
+    public virtual void Attack()
     {
-        lastAttack = Time.deltaTime;
-        // Detect enemies in range of attack
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
-
-        // Apply damge to enemies
-        foreach (Collider2D c in hitObjects)
-        {
-            IDamageable damagable = c.GetComponent<IDamageable>();
-
-            if (damagable == null) continue;
-
-            if (damagable.IsAlly(this.EntityType) || damagable.IsDead())
-                continue;
-            
-            DamageData data = new DamageData(); 
-            data.damageDealer = transform;
-            data.target = c.transform;
-            data.damageDealt = stats.damage;
-            damagable.TakeDamage(data);
-        }
+        throw new NotImplementedException("Implement attack for enemy");
     }
     private void OnDrawGizmos()
     {
@@ -93,5 +79,27 @@ public class Enemy : Entity
     public void SetTarget(GameObject t)
     {
         this.target = t;
+    }
+
+    public GameObject GetTarget()
+    {
+        if (priorityTarget != null)
+            return priorityTarget;
+        return target;
+    }
+    
+    private void OnEnable()
+    {
+        Entity.OnDamaged += Enemy_OnDamaged;
+    }   
+
+    private void OnDisable()
+    {
+        Entity.OnDamaged -= Enemy_OnDamaged;
+    }
+
+    private void Enemy_OnDamaged(Entity e, DamageData d)
+    {
+        stateMachine.ChangeState(hurtState);
     }
 }

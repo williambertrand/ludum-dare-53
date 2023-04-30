@@ -70,7 +70,6 @@ public class PlayerAttack : MonoBehaviour
         {
             // Execute combo
             _debugCurrentStateString = "Hit Basic Combo!";
-            animator.SetTrigger("basicCombo");
             HandleAttack(basicCombo.damage);
             attackState.Clear();
         } else
@@ -81,6 +80,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void HandleAnimationForAttack()
     {
+        Debug.Log("attack state size: " + attackState.Count);
+        
         if (attackState.Count == 1)
         {
             animator.SetTrigger("attack");
@@ -91,10 +92,11 @@ public class PlayerAttack : MonoBehaviour
             animator.SetTrigger("attack2");
             return;
         }
-        else
+        else if (attackState.Count == 3)
         {
             //Woah nice job, hit that combo!
             animator.SetTrigger("attack3");
+            return;
         }
 
     }

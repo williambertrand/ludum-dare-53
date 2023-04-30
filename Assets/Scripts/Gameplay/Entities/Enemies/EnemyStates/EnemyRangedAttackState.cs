@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIsAttackingState : EnemyState
+public class EnemyRangedAttackState : EnemyState
 {
     protected Animator animator;
     protected Enemy self;
     public float onEnter;
 
-    public EnemyIsAttackingState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
+    public EnemyRangedAttackState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
     {
         this.animator = animator;
         self = enemy;
@@ -17,7 +17,7 @@ public class EnemyIsAttackingState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        // animator.SetTrigger("attack");
+        // animator.SetTrigger("fire");
         onEnter = Time.time;
         self.Attack();
     }

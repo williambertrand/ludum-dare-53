@@ -16,7 +16,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        animator.SetTrigger("idle");
+        // animator.SetTrigger("idle");
     }
 
     public override void Exit()

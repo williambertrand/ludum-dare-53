@@ -2,37 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIsAttackingState : EnemyState
+public class EnemyHurtState : EnemyState
 {
     protected Animator animator;
     protected Enemy self;
-    public float onEnter;
+    private float onEnter;
 
-    public EnemyIsAttackingState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
+    public EnemyHurtState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
     {
         this.animator = animator;
         self = enemy;
     }
-
+    
+    // TODO
     public override void Enter()
     {
         base.Enter();
-        // animator.SetTrigger("attack");
-        onEnter = Time.time;
-        self.Attack();
+        // animator.SetTrigger("hurt");
+        
     }
 
     public override void Exit()
     {
         base.Exit();
     }
-
+    
     public override void Update()
     {
-        base.Update();
-        if (Time.time - onEnter >= self.stats.attackDuration)
+        if (Time.time - onEnter >= self.stats.stunRecoveryTime)
         {
             stateMachine.ChangeState(self.combatState);
         }
     }
+
 }

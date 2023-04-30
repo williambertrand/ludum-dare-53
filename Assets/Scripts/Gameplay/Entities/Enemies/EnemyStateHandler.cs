@@ -7,8 +7,7 @@ public class EnemyStateHandler
 
     //Useful when we have a state we want to temporarily be in and then return to prev state
     public Stack<EnemyState> stateStack;
-
-
+    
     public void Initialize(EnemyState startingState)
     {
         CurrentState = startingState;

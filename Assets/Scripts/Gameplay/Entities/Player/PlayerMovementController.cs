@@ -54,7 +54,12 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         
     }
 
-    public void InRoll()
+    private void Stunned()
+    {
+        
+    }
+
+    private void InRoll()
     {
         // ignore inputs while rolling, just handle speed
         rollSpeed -= rollSpeed * rollDropOffFactor * Time.deltaTime;
@@ -65,7 +70,7 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         }
     }
 
-    public void Normal()
+    private void Normal()
     {
         if (!CanMove())
             return;
@@ -77,13 +82,15 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         moveDir.y *= verticalFactor;
 
         if(animator != null)
-            animator.SetFloat("speed", Mathf.Abs(moveX));
+            animator.SetFloat("speed", Mathf.Abs(moveDir.magnitude));
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             rollSpeed = startingRollSpeed;
             rollDir = moveDir;
             currentState = PlayerState.InRoll;
+            // pause walk wile roll/dash
+            animator.SetFloat("speed", 0.0f);
         }
 
         if (moveX > 0) isFacingRight = true;
@@ -104,6 +111,8 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         switch (currentState)
         {
             case PlayerState.Normal:
+                rigidBody.velocity = moveDir * moveSpeed;
+                // animator.SetFloat("speed", rigidBody.velocity.sqrMagnitude);
                 if(rigidBody != null)
                     rigidBody.velocity = moveDir * moveSpeed;
                 break;

@@ -26,13 +26,13 @@ public class EnemySeekingState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        animator.SetFloat("move", 0);
+        //animator.SetFloat("move", 0);
         self.Stop();
     }
 
     public override void Update()
     {
-        if (self.target == null)
+        if (self.GetTarget() == null)
         {
             if (PlayerMovementController.Instance != null)
             {
@@ -42,27 +42,27 @@ public class EnemySeekingState : EnemyState
             else
             {
                 Debug.Log("Found Player");
-                self.target = PlayerMovementController.Instance.gameObject;
+                self.SetTarget(PlayerMovementController.Instance.gameObject);
             }
         }
         self.moveDest = getDesiredAttackPosition();
         self.Move();
 
         // Check if within attack range
-        float playerDist = self.transform.position.DistanceSquared(self.target.transform.position);
-        if (playerDist <= self.stats.attackRange * self.stats.attackRange)
+        float attackDist = self.transform.position.DistanceSquared(self.GetTarget().transform.position);
+        if (attackDist <= self.stats.attackRange * self.stats.attackRange)
         {
-            self.stateMachine.ChangeState(self.attackState);
+            self.stateMachine.ChangeState(self.combatState);
         }
         base.Update();
     }
 
     private Vector3 getDesiredAttackPosition()
     {
-        Vector3 targetPos = self.target.transform.position;
+        Vector3 targetPos = self.GetTarget().transform.position;
         Vector3 directionToTarget = (self.transform.position - targetPos).normalized;
 
-        return (self.target.transform.position + new Vector3(directionToTarget.x, randOffsetY * directionToTarget.y));
+        return (self.GetTarget().transform.position + new Vector3(directionToTarget.x, randOffsetY * directionToTarget.y));
     }
 }
 
