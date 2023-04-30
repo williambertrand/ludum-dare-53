@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using Sirenix.OdinInspector;
 
 public class PlayerAttack : MonoBehaviour
 {
-    
-    [SerializeField]
+    [FoldoutGroup("References"), SerializeField]
+    private Entity entity;
+
+    [FoldoutGroup("Combat"), SerializeField]
     private float attackCooldown;
     private float lastAttackTime;
 
-    [SerializeField] private LayerMask enemyLayers;
+    [FoldoutGroup("Combat"), SerializeField] private LayerMask enemyLayers;
 
-    [Header("Basic Attack")]
-    [SerializeField] private Transform basicAttackPoint;
-    [SerializeField] private int basicAttackDamage;
-    [SerializeField] private float basicAttackRange;
+    [FoldoutGroup("Combat"), SerializeField] private Transform basicAttackPoint;
+    [FoldoutGroup("Combat"), SerializeField] private int basicAttackDamage;
+    [FoldoutGroup("Combat"), SerializeField] private float basicAttackRange;
 
-    [Header("Combo Management")]
+    [FoldoutGroup("Combo Management")]
     [SerializeField] private Combo basicCombo;
 
 
@@ -29,17 +30,23 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator animator;
 
+    private void Awake()
+    {
+        //Always do references in awake :)
+        animator = GetComponent<Animator>();
+        entity = GetComponent<Entity>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         attackState = new Stack<AttackInput>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateAttackState();
+        UpdateAttackState();
 
         bool canAttack = Time.time - lastAttackTime >= attackCooldown; // AND playerstate !== Rolling / dodging / hurt
         if (!canAttack) return;
@@ -57,22 +64,22 @@ public class PlayerAttack : MonoBehaviour
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
         _debugCurrentStateString += AttackType.Basic.ToString() + ", ";
 
-        handleAnimationForAttack();
+        HandleAnimationForAttack();
 
-        if (checkAttackStateAgainstBasicCombo())
+        if (CheckAttackStateAgainstBasicCombo())
         {
             // Execute combo
             _debugCurrentStateString = "Hit Basic Combo!";
             animator.SetTrigger("basicCombo");
-            handleAttack(basicCombo.damage);
+            HandleAttack(basicCombo.damage);
             attackState.Clear();
         } else
         {
-            handleAttack(basicAttackDamage);
+            HandleAttack(basicAttackDamage);
         }
     }
 
-    private void handleAnimationForAttack()
+    private void HandleAnimationForAttack()
     {
         if (attackState.Count == 1)
         {
@@ -92,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    private void handleAttack(int damage)
+    private void HandleAttack(int damage)
     {
         // Detect enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers);
@@ -100,19 +107,23 @@ public class PlayerAttack : MonoBehaviour
         // Apply damge to enemies
         foreach (Collider2D c in hitEnemies)
         {
-            EntityHealthController enemyHealth = c.GetComponent<EntityHealthController>();
-            if (enemyHealth != null)
+            IDamageable enemyDamagable = c.GetComponent<IDamageable>();
+           
+            if (enemyDamagable.IsAlly(entity.EntityType) || enemyDamagable.IsDead())
+                continue;
+
+            if (enemyDamagable != null)
             {
                 DamageData data = new DamageData();
                 data.damageDealer = transform;
                 data.target = c.transform;
                 data.damageDealt = damage;
-                enemyHealth.TakeDamage(data);
+                enemyDamagable.TakeDamage(data);
             }
         }
     }
 
-    private bool checkAttackStateAgainstBasicCombo()
+    private bool CheckAttackStateAgainstBasicCombo()
     {
         var i = 0;
         foreach(AttackInput input in attackState)
@@ -130,7 +141,7 @@ public class PlayerAttack : MonoBehaviour
 
 
     // Clear attack state if the combo hang time has been surpassed
-    private void updateAttackState()
+    private void UpdateAttackState()
     {
 
         if (attackState.Count == 0) return;

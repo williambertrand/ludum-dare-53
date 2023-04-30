@@ -40,11 +40,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2779911751568797478}
+  - component: {fileID: 9038336275765794395}
+  - component: {fileID: 1597138755290648339}
+  - component: {fileID: 2779911751568797474}
+  - component: {fileID: 5012390342168032331}
   - component: {fileID: 2779911751568797477}
   - component: {fileID: 2779911751568797476}
   - component: {fileID: 2779911751568797475}
-  - component: {fileID: 2779911751568797474}
-  - component: {fileID: 5012390342168032331}
   - component: {fileID: 4615579004570077971}
   m_Layer: 6
   m_Name: Player
@@ -69,6 +71,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9038336275765794395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779911751568797480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186bdcc07cde48840bca829b038b7423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityType: 0
+  healthController: {fileID: 0}
+  hasInit: 0
+--- !u!114 &1597138755290648339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779911751568797480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26247776b695fc949adce3d08a3614ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  _health: 0
+  _maxHealth: 15
+--- !u!114 &2779911751568797474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779911751568797480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cdc05d1cdf24199b24df83aba74adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rigidBody: {fileID: 0}
+  playerAttack: {fileID: 0}
+  currentState: 0
+  moveSpeed: 5
+  verticalFactor: 0.6
+  startingRollSpeed: 25
+  rollDropOffFactor: 6
+--- !u!114 &5012390342168032331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779911751568797480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca84ceff780474df0995087e83c46c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  attackCooldown: 0.2
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  basicAttackPoint: {fileID: 2628863303439292346}
+  basicAttackDamage: 10
+  basicAttackRange: 0.3
+  basicCombo:
+    attackTypes: 000000000000000000000000
+    damage: 20
+  comboHangTime: 1
 --- !u!70 &2779911751568797477
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -126,47 +202,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2779911751568797474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2779911751568797480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cdc05d1cdf24199b24df83aba74adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  moveSpeed: 5
-  verticalFactor: 0.6
-  startingRollSpeed: 25
-  rollDropOffFactor: 6
-  animator: {fileID: 0}
---- !u!114 &5012390342168032331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2779911751568797480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca84ceff780474df0995087e83c46c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCooldown: 0.2
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  basicAttackPoint: {fileID: 2628863303439292346}
-  basicAttackDamage: 10
-  basicAttackRange: 0.3
-  basicCombo:
-    attackTypes: 000000000000000000000000
-    damage: 20
-  comboHangTime: 1
 --- !u!212 &4615579004570077971
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -205,8 +240,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -129858385
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -52,7 +52,7 @@ public class EntityHealthController : MonoBehaviour, IDamageable
     public void Death()
     {
         //TODO Add a second before despawning them for flickering in and out of existence.
-        
+        print("Entity died, destroying in 1 second");
         Destroy(this.gameObject, 1);
     }
 

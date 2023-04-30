@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyGroups:
   - enemies:
-    - {fileID: 1083369377184746554, guid: 2f8fada399385fd428342c0479efd24f, type: 3}
-    - {fileID: 1083369377184746554, guid: 2f8fada399385fd428342c0479efd24f, type: 3}
-    - {fileID: 1083369377184746554, guid: 2f8fada399385fd428342c0479efd24f, type: 3}
+    - {fileID: 6165471231889020200, guid: 0ea044ca71b124333b929eaebbf31429, type: 3}
+    - {fileID: 6165471231889020200, guid: 0ea044ca71b124333b929eaebbf31429, type: 3}
   - enemies:
-    - {fileID: 1083369377184746554, guid: 2f8fada399385fd428342c0479efd24f, type: 3}
-    - {fileID: 1083369377184746554, guid: 2f8fada399385fd428342c0479efd24f, type: 3}
+    - {fileID: 6165471231889020200, guid: 0ea044ca71b124333b929eaebbf31429, type: 3}
+    - {fileID: 6165471231889020200, guid: 0ea044ca71b124333b929eaebbf31429, type: 3}
   timeBetweenGroups: 2

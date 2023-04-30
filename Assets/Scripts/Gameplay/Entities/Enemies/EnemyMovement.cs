@@ -31,24 +31,26 @@ public class EnemyMovement : MonoBehaviour
 
     public void HandleMoveUpdate()
     {
-        float dX = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
-        float dY = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
+        //Please don't use analogies. I can't read this. What does dX mean. I'm assuming directionX
+        //float dX = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
+        //float dY = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
+
+        float xDirection = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
+        float yDirection = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
+
+
 
         // TODO: Should players and enemies share a y speed factor?
-        targetVelocity = new Vector2(dX, dY * 0.75f);
+        //For now, no, they should just have an internal variable that controls it. No need for a global one in GameJams
+        targetVelocity = new Vector2(xDirection, yDirection * 0.75f);
 
-        // If the input is moving the player right and the player is facing left...
-        if (dX > 0 && !facingRight)
-        {
-            // ... flip the player.
-            Flip();
-        }
-        // Otherwise if the enemy is moving left but facing right...
-        else if (dX < 0 && facingRight)
-        {
-            // ... flip the player.
-            Flip();
-        }
+        // If input is left or right, set facing right.
+        if (xDirection > 0)
+            facingRight = true;
+        else if (xDirection < 0)
+            facingRight = false;
+
+        Flip();
     }
 
     private void FixedUpdate()
@@ -61,21 +63,21 @@ public class EnemyMovement : MonoBehaviour
         targetVelocity = Vector3.zero;
     }
 
+   
+
+    private void Flip()
+    {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= facingRight ? 1 : -1;
+        transform.localScale = theScale;
+    }
     private void OnDrawGizmos()
     {
-        if (enemyRef !=null && enemyRef.moveDest != null)
+        if (enemyRef != null && enemyRef.moveDest != null)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(enemyRef.moveDest, 0.25f);
             Handles.Label(new Vector3(enemyRef.moveDest.x, enemyRef.moveDest.y - 0.5f), "Move Dest");
         }
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
     }
 }
