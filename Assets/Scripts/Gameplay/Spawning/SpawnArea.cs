@@ -28,7 +28,6 @@ public class SpawnArea : MonoBehaviour
         if(coroutine_StartWaveLoop == null)
             coroutine_StartWaveLoop = StartCoroutine(StartWaveLoop());
 
-        restrictions.RestrictionTrigger_OnTriggerEnterEvent(new Collider2D());
     }
 
     public void FinishWave()

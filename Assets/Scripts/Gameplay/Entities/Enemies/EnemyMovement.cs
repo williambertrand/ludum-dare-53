@@ -63,12 +63,10 @@ public class EnemyMovement : MonoBehaviour
         targetVelocity = Vector3.zero;
     }
 
-   
-
     private void Flip()
     {
         Vector3 theScale = transform.localScale;
-        theScale.x *= facingRight ? 1 : -1;
+        theScale.x = facingRight ? 1 : -1;
         transform.localScale = theScale;
     }
     private void OnDrawGizmos()

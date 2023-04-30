@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private bool hasInit;
 
-    private void Awake()
+    public void Awake()
     {
         if (hasInit)
             return;
