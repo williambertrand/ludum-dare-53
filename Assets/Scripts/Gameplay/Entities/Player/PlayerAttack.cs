@@ -1,64 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public enum AttackType
-{
-    Basic
-}
-
-struct AttackInput
-{
-    AttackType type;
-    float time;
-
-    public AttackInput(AttackType type, float time)
-    {
-        this.type = type;
-        this.time = time;
-    }
-
-    public float Time
-    {
-        get { return time; }
-        set { time = value; }
-    }
-
-    public AttackType Type
-    {
-        get { return type; }
-        set { type = value; }
-    }
-}
-
-[System.Serializable]
-public class Attack
-{
-    public AttackType type;
-    public string anim;
-    public float duration;
-}
-
-[System.Serializable]
-public class Combo
-{
-    public List<AttackType> attackTypes;
-}
 
 public class PlayerAttack : MonoBehaviour
 {
     
-
     [SerializeField]
     private float attackCooldown;
     private float lastAttackTime;
 
+    [SerializeField] private LayerMask enemyLayers;
+
+    [Header("Basic Attack")]
+    [SerializeField] private Transform basicAttackPoint;
+    [SerializeField] private int basicAttackDamage;
+    [SerializeField] private float basicAttackRange;
+
+    [Header("Combo Management")]
     [SerializeField] private Combo basicCombo;
 
 
     // Hold current list of active attacks to determine if we've hit a combo
     private Stack<AttackInput> attackState;
-
+    private string _debugCurrentStateString;
     [SerializeField] private float comboHangTime;
 
     private Animator animator;
@@ -73,6 +39,8 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        updateAttackState();
+
         bool canAttack = Time.time - lastAttackTime >= attackCooldown; // AND playerstate !== Rolling / dodging / hurt
         if (!canAttack) return;
         if(Input.GetKeyDown(KeyCode.Space))
@@ -87,11 +55,60 @@ public class PlayerAttack : MonoBehaviour
     {
         lastAttackTime = Time.time;
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
+        _debugCurrentStateString += AttackType.Basic.ToString() + ", ";
+
+        handleAnimationForAttack();
 
         if (checkAttackStateAgainstBasicCombo())
         {
             // Execute combo
+            _debugCurrentStateString = "Hit Basic Combo!";
             animator.SetTrigger("basicCombo");
+            handleAttack(basicCombo.damage);
+            attackState.Clear();
+        } else
+        {
+            handleAttack(basicAttackDamage);
+        }
+    }
+
+    private void handleAnimationForAttack()
+    {
+        if (attackState.Count == 1)
+        {
+            animator.SetTrigger("attack");
+            return;
+        }
+        else if (attackState.Count == 2)
+        {
+            animator.SetTrigger("attack2");
+            return;
+        }
+        else
+        {
+            //Woah nice job, hit that combo!
+            animator.SetTrigger("attack3");
+        }
+
+    }
+
+    private void handleAttack(int damage)
+    {
+        // Detect enemies in range of attack
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers);
+
+        // Apply damge to enemies
+        foreach (Collider2D c in hitEnemies)
+        {
+            EntityHealthController enemyHealth = c.GetComponent<EntityHealthController>();
+            if (enemyHealth != null)
+            {
+                DamageData data = new DamageData();
+                data.damageDealer = transform;
+                data.target = c.transform;
+                data.damageDealt = damage;
+                enemyHealth.TakeDamage(data);
+            }
         }
     }
 
@@ -106,7 +123,9 @@ public class PlayerAttack : MonoBehaviour
             }
             i++;
         }
-        return true;
+        if(i == basicCombo.attackTypes.Count)
+            return true;
+        return false;
     }
 
 
@@ -119,7 +138,27 @@ public class PlayerAttack : MonoBehaviour
         AttackInput lastInput = attackState.Peek();
         if (Time.time - lastInput.Time >= comboHangTime)
         {
+            _debugCurrentStateString = "";
             attackState.Clear();
+        }
+    }
+
+    // Can be called o ntaking damage to null out the combo state
+    public void ClearAttackState()
+    {
+        attackState.Clear();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (attackState != null)
+        {
+            Handles.Label(transform.position + new Vector3(1.5f, 1.0f), _debugCurrentStateString);
+        }
+
+        if (basicAttackPoint != null)
+        {
+            Gizmos.DrawWireSphere(basicAttackPoint.position, basicAttackRange);
         }
     }
 }
