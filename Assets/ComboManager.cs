@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+=======
+using System.Collections;
+using System.Collections.Generic;
+>>>>>>> 96fd27836c5495c3758b496311161c19ffc4d850
 using UnityEngine;
 
 public class ComboManager : MonoBehaviour
 {
+<<<<<<< HEAD
     public static event Action<ComboTracking> OnComboChanged;
 
     public List<ComboTracking> tracking = new List<ComboTracking>();
@@ -66,3 +72,17 @@ public class ComboTracking
     public int comboReq;
     public Sprite comboSprite;
 }
+=======
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+>>>>>>> 96fd27836c5495c3758b496311161c19ffc4d850

@@ -64,8 +64,11 @@ public class SpawnAreaRestrictions : MonoBehaviour
 
     public void RestrictionTrigger_OnTriggerEnterEvent(Collider2D obj)
     {
+<<<<<<< HEAD
         restrictionTrigger.enabled = false;
         SpawnManager.Instance.StartSpawnArea(GetComponent<SpawnArea>());
+=======
+>>>>>>> 96fd27836c5495c3758b496311161c19ffc4d850
         virtualCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = restrictionBounds;
         ToggleBarriers(true);
     }
