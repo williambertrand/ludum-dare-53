@@ -1,16 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
 
-//Is this for all enemies? Or is this just for the melee one? Depending on the answer
-//You'll need to change the class name to MeleeEnemy or Bandit or something :)
+
 public class Enemy : Entity
 {
     [FoldoutGroup("Enemy Stats")] public GameObject target;
     [FoldoutGroup("Enemy Stats")] public EnemyStats stats;
     [FoldoutGroup("Enemy Stats")] public Vector3 moveDest;
     [FoldoutGroup("Enemy Stats")] public float lastAttack;
-    [FoldoutGroup("Enemy Stats"), SerializeField] private Transform attackPoint;
+    [FoldoutGroup("Enemy Stats"), SerializeField] protected Transform attackPoint;
 
     [FoldoutGroup("References")] public EnemyStateHandler stateMachine;
     [FoldoutGroup("References")] public EnemyIdleState idleState;
@@ -59,28 +59,9 @@ public class Enemy : Entity
     }
     
     // TODO: Update to use collider to be active during enemy swipe + dash at player?
-    public void Attack()
+    public virtual void Attack()
     {
-        lastAttack = Time.deltaTime;
-        // Detect enemies in range of attack
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
-
-        // Apply damge to enemies
-        foreach (Collider2D c in hitObjects)
-        {
-            IDamageable damagable = c.GetComponent<IDamageable>();
-
-            if (damagable == null) continue;
-
-            if (damagable.IsAlly(this.EntityType) || damagable.IsDead())
-                continue;
-            
-            DamageData data = new DamageData(); 
-            data.damageDealer = transform;
-            data.target = c.transform;
-            data.damageDealt = stats.damage;
-            damagable.TakeDamage(data);
-        }
+        throw new NotImplementedException("Implement attack for enemy");
     }
     private void OnDrawGizmos()
     {
