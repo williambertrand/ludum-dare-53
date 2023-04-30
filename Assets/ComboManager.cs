@@ -50,7 +50,7 @@ public class ComboManager : MonoBehaviour
         return tracking.Last(c => c.comboReq <= currentCombo);
     }
 
-    private void Entity_OnDamaged(Entity obj)
+    private void Entity_OnDamaged(Entity obj, DamageData d)
     {
         if (obj.EntityType == EntityType.Player)
             LoseCombo();
