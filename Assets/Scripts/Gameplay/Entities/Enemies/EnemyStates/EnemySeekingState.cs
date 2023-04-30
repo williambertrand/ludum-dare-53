@@ -60,11 +60,10 @@ public class EnemySeekingState : EnemyState
     private Vector3 getDesiredAttackPosition()
     {
         Vector3 targetPos = self.target.transform.position;
-        int deltaX = self.transform.position.x < targetPos.x ? -1 : 1;
-        int deltaY = self.transform.position.x < targetPos.x ? -1 : 1;
 
-        Vector3 delta = (self.transform.position - targetPos).normalized;
+        Vector3 directionToTarget = (self.transform.position - targetPos).normalized;
 
-        return (self.target.transform.position + new Vector3(delta.x, 0.5f * delta.y));
+        return (self.target.transform.position + new Vector3(directionToTarget.x, 0.5f * directionToTarget.y));
     }
 }
+
