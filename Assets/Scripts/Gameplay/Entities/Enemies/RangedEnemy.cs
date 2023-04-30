@@ -7,11 +7,10 @@ public class RangedEnemy : Enemy
     [Header("Ranged attack info")]
     public GameObject projectile;
     public float shootVel;
-    public float attackDamage;
-    
+
     public override void Attack()
     {
-        lastAttack = Time.deltaTime;
+        lastAttack = Time.time;
         FireProjectileAtTarget();
     }
     
@@ -22,12 +21,11 @@ public class RangedEnemy : Enemy
         //animator.SetTrigger("attack");
 
         Vector3 targetPos = target.transform.position;
-        Vector3 dir = ( targetPos- transform.position).normalized;
+        Vector3 dir = ( targetPos - transform.position).normalized;
 
-        GameObject proj = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+        GameObject proj = Instantiate(projectile, attackPoint.position, Quaternion.LookRotation(dir));
         proj.transform.position = attackPoint.position;
         proj.GetComponent<Rigidbody2D>().velocity = dir * shootVel;
-        proj.GetComponent<Projectile>().damage = attackDamage;
-        lastAttack = Time.time;
+        proj.GetComponent<Projectile>().damage = stats.damage;
     }
 }

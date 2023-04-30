@@ -28,7 +28,6 @@ public class EnemyCombatState : EnemyState
         float playerDist = self.transform.position.DistanceSquared(self.target.transform.position);
         if (playerDist <= self.stats.attackRange * self.stats.attackRange)
         {
-            Debug.Log("Attack in range, initiating!");
             self.Attack();
             self.stateMachine.ChangeState(self.isAttackingState);
         } else

@@ -17,7 +17,7 @@ public class EnemyIsAttackingState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        animator.SetTrigger("attack");
+        // animator.SetTrigger("attack");
         onEnter = Time.time;
         self.Attack();
     }
