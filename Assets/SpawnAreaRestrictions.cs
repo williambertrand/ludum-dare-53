@@ -22,6 +22,7 @@ public class SpawnAreaRestrictions : MonoBehaviour
     {
         StartCoroutine(WaitForCamera());
         restrictionTrigger = GetComponentInChildren<SubscribablePhysics2D>();
+        restrictionTrigger.OnTriggerEnterEvent += RestrictionTrigger_OnTriggerEnterEvent;
     }
     
 
@@ -34,9 +35,11 @@ public class SpawnAreaRestrictions : MonoBehaviour
         }
     }
 
+   
+
     public void Start()
     {
-        restrictionTrigger.OnTriggerEnterEvent += RestrictionTrigger_OnTriggerEnterEvent;
+        SetGlobalConfiner();
         SpawnManager.OnAreaFinished += FinishWave;
         ToggleBarriers(false);
     }
@@ -49,11 +52,19 @@ public class SpawnAreaRestrictions : MonoBehaviour
     [Button]
     public void FinishWave(SpawnArea area)
     {
-        PolygonCollider2D globalConfiner = FindObjectOfType<CameraGlobalConfiner>().GetComponent<PolygonCollider2D>();
-        virtualCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = globalConfiner;
-        SpawnManager.OnAreaFinished -= FinishWave;
+        if (GetComponent<SpawnArea>() != area)
+            return;
+
+        SetGlobalConfiner();
 
         ToggleBarriers(false);
+        SpawnManager.OnAreaFinished -= FinishWave;
+    }
+
+    public void SetGlobalConfiner()
+    {
+        PolygonCollider2D globalConfiner = FindObjectOfType<CameraGlobalConfiner>().GetComponent<PolygonCollider2D>();
+        virtualCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = globalConfiner;
     }
 
     public void ToggleBarriers(bool isActive)
@@ -64,7 +75,7 @@ public class SpawnAreaRestrictions : MonoBehaviour
 
     public void RestrictionTrigger_OnTriggerEnterEvent(Collider2D obj)
     {
-        restrictionTrigger.enabled = false;
+        restrictionTrigger.gameObject.SetActive(false);
         SpawnManager.Instance.StartSpawnArea(GetComponent<SpawnArea>());
         virtualCam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = restrictionBounds;
         ToggleBarriers(true);
