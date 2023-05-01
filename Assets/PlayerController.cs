@@ -2,6 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
+using OTBG.UI.Utility;
 
 [System.Serializable]
 public struct PlayerStats
@@ -19,6 +20,7 @@ public class PlayerController : Entity
     private Animator _animator;
     private bool _isStunned;
     private float _stunnedAt;
+    public ValueBar healthValueBar;
 
     public override void HealthController_OnHealthChanged(ValueChange obj)
     {
@@ -56,11 +58,13 @@ public class PlayerController : Entity
     private void OnEnable()
     {
         _entityHealthController.OnDamaged += Player_OnDamaged;
+        _entityHealthController.OnHealthChanged += Player_OnHealthChanged;
     }   
 
     private void OnDisable()
     {
         _entityHealthController.OnDamaged -= Player_OnDamaged;
+        _entityHealthController.OnHealthChanged -= Player_OnHealthChanged;
     }
 
     private void Player_OnDamaged(DamageData d)
@@ -69,5 +73,15 @@ public class PlayerController : Entity
         _stunnedAt = Time.time;
         _isStunned = true;
         _animator.SetTrigger("hurt");
+    }
+
+    private void Player_OnHealthChanged(ValueChange valueChange)
+    {
+        healthValueBar.UpdateValue(valueChange);
+    }
+
+    private void Player_OnDeath()
+    {
+        
     }
 }

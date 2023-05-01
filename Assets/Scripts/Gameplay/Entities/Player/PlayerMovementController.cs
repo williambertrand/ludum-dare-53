@@ -84,13 +84,14 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         if(animator != null)
             animator.SetFloat("speed", Mathf.Abs(moveDir.magnitude));
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Return))
         {
+            animator.SetTrigger("roll");
             rollSpeed = startingRollSpeed;
             rollDir = moveDir;
             currentState = PlayerState.InRoll;
             // pause walk wile roll/dash
-            animator.SetFloat("speed", 0.0f);
+            // animator.SetFloat("speed", 0.0f);
         }
 
         if (moveX > 0) isFacingRight = true;

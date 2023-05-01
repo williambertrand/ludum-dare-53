@@ -28,6 +28,14 @@ public class EnemyHurtState : EnemyState
     
     public override void Update()
     {
+        if (self.IsDead())
+        {
+            // Stay in hurt state if enemy has died
+            // TODO: if time add death fade out
+            // animator.SetTrigger("dead");
+            return;
+        }
+        
         if (Time.time - onEnter >= self.stats.stunRecoveryTime)
         {
             stateMachine.ChangeState(self.combatState);

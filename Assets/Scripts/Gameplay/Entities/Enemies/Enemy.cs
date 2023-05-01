@@ -29,11 +29,14 @@ public class Enemy : Entity
     private Animator animator;
     private EnemyMovement movement;
 
+    private IDamageable _damageable;
+
     protected void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
         movement = GetComponent<EnemyMovement>();
+        _damageable = GetComponent<IDamageable>();
     }
 
     protected void Start()
@@ -111,5 +114,10 @@ public class Enemy : Entity
     public void Enemy_OnDamaged(DamageData d)
     {
         stateMachine.ChangeState(hurtState);
+    }
+
+    public bool IsDead()
+    {
+        return _damageable.IsDead();
     }
 }
