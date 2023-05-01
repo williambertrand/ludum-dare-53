@@ -29,11 +29,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-        
         // Set up movement relevant fields based on enemy stats
-
         moveSpeed = enemyRef.stats.moveSpeed;
-
         facingRight = true;
     }
 
@@ -44,13 +41,14 @@ public class EnemyMovement : MonoBehaviour
         
         targetVelocity = new Vector2(xDirection, yDirection * 0.75f);
         animator.SetFloat("speed", targetVelocity.magnitude);
-        // If input is left or right, set facing right.
-        if (xDirection > 0)
-            facingRight = true;
-        else if (xDirection < 0)
-            facingRight = false;
+        
+        Flip(xDirection);
+    }
 
-        Flip();
+    public void HandleDirectionCheck()
+    {
+        float xDirection = enemyRef.moveDest.x - transform.position.x > 0 ? 1 : -1;
+        Flip(xDirection);
     }
 
     private void FixedUpdate()
@@ -64,8 +62,13 @@ public class EnemyMovement : MonoBehaviour
         targetVelocity = Vector3.zero;
     }
 
-    private void Flip()
+    private void Flip(float xDirection)
     {
+        if (xDirection > 0)
+            facingRight = true;
+        else if (xDirection < 0)
+            facingRight = false;
+        
         Vector3 theScale = transform.localScale;
         theScale.x = facingRight ? 1 : -1;
         transform.localScale = theScale;

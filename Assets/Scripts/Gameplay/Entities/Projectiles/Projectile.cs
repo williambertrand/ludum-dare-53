@@ -24,10 +24,7 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         IDamageable damagable = collision.gameObject.GetComponent<IDamageable>();
-           
-        if (owner != null && (damagable.IsAlly(owner.EntityType) || damagable.IsDead()))
-            return;
-
+        
         if (damagable != null)
         {
             DamageData data = new DamageData();
@@ -36,5 +33,6 @@ public class Projectile : MonoBehaviour
             data.damageDealt = damage;
             damagable.TakeDamage(data);
         }
+        Destroy(gameObject);
     }
 }

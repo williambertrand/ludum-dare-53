@@ -22,7 +22,9 @@ public class EnemyCombatState : EnemyState
             Debug.LogError("No target in combat state");
             return;
         }
-
+        
+        self.FaceTarget();
+        
         bool attackIsCoolingDown = Time.time - self.lastAttack < self.stats.attackSpeed;
         if (attackIsCoolingDown) return;
         // Check if within attack range

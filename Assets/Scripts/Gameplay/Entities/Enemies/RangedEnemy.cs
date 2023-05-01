@@ -28,6 +28,7 @@ public class RangedEnemy : Enemy
             projectile.transform.LookAt(target.transform.position);
             proj.GetComponent<Rigidbody2D>().velocity = dir * shootVel;
             proj.GetComponent<Projectile>().damage = stats.damage;
+            proj.GetComponent<Projectile>().owner = this;
         }
     }
 }

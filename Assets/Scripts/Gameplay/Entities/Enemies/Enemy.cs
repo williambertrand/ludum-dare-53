@@ -64,6 +64,11 @@ public class Enemy : Entity
         movement.HandleMoveUpdate();
     }
 
+    public void FaceTarget()
+    {
+        movement.HandleDirectionCheck();
+    }
+
     public void Stop()
     {
         movement.StopMovement();
@@ -105,7 +110,7 @@ public class Enemy : Entity
         healthController.OnDamaged -= Enemy_OnDamaged;
     }
 
-    private void Enemy_OnDamaged(DamageData d)
+    public void Enemy_OnDamaged(DamageData d)
     {
         stateMachine.ChangeState(hurtState);
     }

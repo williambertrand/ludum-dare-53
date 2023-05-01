@@ -43,7 +43,6 @@ public class Entity : MonoBehaviour
     public void References()
     {
         healthController = GetComponent<EntityHealthController>();
-
     }
 
     public void Initialisation()
@@ -67,7 +66,6 @@ public class Entity : MonoBehaviour
     { 
         healthController.OnHealthChanged -= HealthController_OnHealthChanged;
         healthController.OnDamaged -= HealthController_OnDamaged;
-
     }
 
     public virtual void HealthController_OnHealthChanged(ValueChange obj)
