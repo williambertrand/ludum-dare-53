@@ -28,7 +28,6 @@ public class Enemy : Entity
     
     private Animator animator;
     private EnemyMovement movement;
-    private EntityHealthController healthController;
 
     protected void Awake()
     {
