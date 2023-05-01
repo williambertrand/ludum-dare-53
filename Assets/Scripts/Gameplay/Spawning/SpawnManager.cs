@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using OTBG.Utility;
 using Sirenix.OdinInspector;
 using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public enum EntityType
@@ -28,6 +29,8 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         currentArea = spawnArea;
         spawnArea.StartWave();
         OnAreaStarted?.Invoke(currentArea);
+        
+        CarriageController.Instance.MoveToNextLocation(currentArea.wagonPosition.position);
     }
 
     public void FinishSpawnArea()

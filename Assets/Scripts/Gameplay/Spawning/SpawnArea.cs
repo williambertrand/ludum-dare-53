@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 public class SpawnArea : MonoBehaviour
 {
     public SpawnAreaRestrictions restrictions;
-
+    public Transform wagonPosition;
     public List<Entity> spawnedEntities = new List<Entity>();
     public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
 

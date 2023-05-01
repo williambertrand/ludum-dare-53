@@ -114,13 +114,15 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemyDamagable != null)
             {
+
+                // Show effect on enemy head
+                EffectsManager.Instance.SpawnHitEffect(c.transform.position + new Vector3(0.0f, 0.5f));
+                
                 DamageData data = new DamageData();
                 data.damageDealer = transform;
                 data.target = c.transform;
                 data.damageDealt = damage;
                 enemyDamagable.TakeDamage(data);
-                // TODO : subscription to this event is not quite working
-                //c.GetComponent<Enemy>().Enemy_OnDamaged(data);
             }
         }
     }

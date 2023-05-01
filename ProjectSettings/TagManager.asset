@@ -47,9 +47,18 @@ TagManager:
   - name: Ground
     uniqueID: 1787229485
     locked: 0
+  - name: Carriage
+    uniqueID: 719461181
+    locked: 0
+  - name: Effects
+    uniqueID: 1054773815
+    locked: 0
   - name: Entities
     uniqueID: 4165108911
     locked: 0
   - name: Particles
     uniqueID: 904035953
+    locked: 0
+  - name: Text
+    uniqueID: 932912813
     locked: 0
