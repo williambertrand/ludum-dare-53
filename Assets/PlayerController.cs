@@ -23,12 +23,14 @@ public class PlayerController : Entity
     public bool _isStunned;
     private float _stunnedAt;
 
+    public bool lowHealthTriggered;
+
     public override void HealthController_OnHealthChanged(ValueChange obj)
     {
-        if(obj.GetPercentage() < 0.4f)
+        if(obj.GetPercentage() < 0.4f && !lowHealthTriggered)
         {
-            if (!AudioManager.Instance.IsSFXClipPlayingAlready(SFXIDs.PLAYER_LOW_HEALTH))
-                AudioManager.Instance.PlaySoundEffect(SFXIDs.PLAYER_LOW_HEALTH, false);
+            lowHealthTriggered = true;
+            AudioManager.Instance.PlaySoundEffect(SFXIDs.PLAYER_LOW_HEALTH, false);
         }
 
         OnHealthChanged?.Invoke(obj);

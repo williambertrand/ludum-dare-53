@@ -58,11 +58,7 @@ namespace OTBG.Audio
             else soundEffectsManager.PlayAudioClip(audioClip.id);
         }
 
-        public bool IsSFXClipPlayingAlready(string id)
-        {
-            AudioController source = soundEffectsManager.allSoundEffectAudioSources.FirstOrDefault(a => a.IsPlaying() && a.currentAudioClip.id == id);
-            return source != null;
-        }
+
 
         public void UpdateMixers()
         {

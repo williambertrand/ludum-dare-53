@@ -5550,7 +5550,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1543908794}
+        m_TargetAssemblyTypeName: HighlightButton, Assembly-CSharp
+        m_MethodName: PlayShotSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gunIcon: {fileID: 778951224}
 --- !u!1 &1549987163
 GameObject:

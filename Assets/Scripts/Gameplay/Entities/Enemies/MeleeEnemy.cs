@@ -1,3 +1,4 @@
+using OTBG.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class MeleeEnemy : Enemy
     //TODO: Delayed attack with movement towards player
     private void HandleAttack()
     {
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.ENEMY_1_ATTACK_1, true);
+
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
         
         // Apply damge to enemies

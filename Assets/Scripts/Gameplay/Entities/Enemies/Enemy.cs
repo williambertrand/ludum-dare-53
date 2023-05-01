@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using OTBG.Audio;
 
 public enum TargetPriorityType
 {
@@ -106,6 +107,7 @@ public class Enemy : Entity
 
     public void Enemy_OnDamaged(DamageData d)
     {
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.ENEMY_DAMAGED, true);
         stateMachine.ChangeState(hurtState);
     }
 
