@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -108,8 +109,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D c in hitEnemies)
         {
             IDamageable enemyDamagable = c.GetComponent<IDamageable>();
-           
-            if (enemyDamagable.IsAlly(entity.EntityType) || enemyDamagable.IsDead())
+            if (enemyDamagable.IsDead())
                 continue;
 
             if (enemyDamagable != null)
@@ -119,6 +119,8 @@ public class PlayerAttack : MonoBehaviour
                 data.target = c.transform;
                 data.damageDealt = damage;
                 enemyDamagable.TakeDamage(data);
+                // TODO : subscription to this event is not quite working
+                //c.GetComponent<Enemy>().Enemy_OnDamaged(data);
             }
         }
     }

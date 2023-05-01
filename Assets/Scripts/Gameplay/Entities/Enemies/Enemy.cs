@@ -34,7 +34,6 @@ public class Enemy : Entity
         base.Awake();
         animator = GetComponent<Animator>();
         movement = GetComponent<EnemyMovement>();
-        healthController = GetComponent<EntityHealthController>();
     }
 
     protected void Start()

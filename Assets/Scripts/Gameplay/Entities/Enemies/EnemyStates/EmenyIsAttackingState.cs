@@ -30,6 +30,7 @@ public class EnemyIsAttackingState : EnemyState
     public override void Update()
     {
         base.Update();
+        self.FaceTarget();
         if (Time.time - onEnter >= self.stats.attackDuration)
         {
             stateMachine.ChangeState(self.combatState);

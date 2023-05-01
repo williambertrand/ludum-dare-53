@@ -18,7 +18,6 @@ public class EnemyHurtState : EnemyState
     {
         base.Enter();
         onEnter = Time.time;
-        Debug.Log("----- Entered hurt state");
         animator.SetTrigger("hurt");
     }
 

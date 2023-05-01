@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void HandleDirectionCheck()
     {
-        float xDirection = enemyRef.moveDest.x - transform.position.x > 0 ? 1 : -1;
+        float xDirection = enemyRef.GetTarget().transform.position.x - transform.position.x > 0 ? 1 : -1;
         Flip(xDirection);
     }
 
