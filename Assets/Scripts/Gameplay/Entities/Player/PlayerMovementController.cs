@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using OTBG.Utility;
 using Sirenix.OdinInspector;
+using System;
 
 public enum PlayerState
 {
@@ -13,6 +14,8 @@ public enum PlayerState
 
 public class PlayerMovementController : MonoSingleton<PlayerMovementController>
 {
+    public static event Action OnPlayerMove;
+
     [FoldoutGroup("References"), SerializeField] private Animator animator;
     [FoldoutGroup("References"), SerializeField] private Rigidbody2D rigidBody;
     [FoldoutGroup("References"), SerializeField] private PlayerAttack playerAttack;
@@ -121,6 +124,11 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
                 // animator.SetFloat("speed", rigidBody.velocity.sqrMagnitude);
                 if(rigidBody != null)
                     rigidBody.velocity = moveDir * moveSpeed;
+
+                if(moveDir != Vector3.zero)
+                    OnPlayerMove?.Invoke();
+
+
                 break;
             case PlayerState.InRoll:
                 if(rigidBody != null)

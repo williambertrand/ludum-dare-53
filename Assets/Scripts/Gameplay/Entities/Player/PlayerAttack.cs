@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
     private void HandleAttack(bool isCombo)
     {
         // Detect enemies in range of attack
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers);
+        List<Collider2D> hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers).ToList().Take(3).ToList();
 
         // Apply damge to enemies
         foreach (Collider2D c in hitEnemies)
@@ -125,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
                 enemyDamagable.TakeDamage(data);
 
                 // Only allow an attack to hit a single enemy
-                return;
+                continue;
             }
         }
     }

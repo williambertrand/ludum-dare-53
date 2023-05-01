@@ -43,6 +43,7 @@ public class SpawnAreaRestrictions : MonoBehaviour
     private void OnDisable()
     {
         restrictionTrigger.OnTriggerEnterEvent -= RestrictionTrigger_OnTriggerEnterEvent;
+        SpawnManager.OnAreaFinished -= FinishWave;
     }
 
     [Button]

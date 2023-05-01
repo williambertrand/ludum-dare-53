@@ -50,6 +50,12 @@ namespace OTBG.Audio
                 soundEffectsManager.PlayAudioClipOneShot(id);
             else soundEffectsManager.PlayAudioClip(id);
         }
+        public void PlaySoundEffect(AudioClipSO audioClip, bool isOneShot)
+        {
+            if (isOneShot)
+                soundEffectsManager.PlayAudioClipOneShot(audioClip.id);
+            else soundEffectsManager.PlayAudioClip(audioClip.id);
+        }
 
         public void UpdateMixers()
         {

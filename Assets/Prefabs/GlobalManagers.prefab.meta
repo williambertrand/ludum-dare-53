@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations/Entities/Player/Player_Dodge_Fixed.anim.meta
+guid: 8681af1dca48540989dbbef6801eeb32
+NativeFormatImporter:
+========
+guid: 268106b29d196f849b57a6d3c9e7ccbd
+PrefabImporter:
+>>>>>>>> main:Assets/Prefabs/GlobalManagers.prefab.meta
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
