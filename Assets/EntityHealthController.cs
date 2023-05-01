@@ -68,12 +68,10 @@ public class EntityHealthController : MonoBehaviour, IDamageable
         this._isInvulnerable = isInvulnerable;
     }
     
-
     public bool IsAlly(EntityType type)
     {
         if (entity == null)
         {
-            Debug.Log("Null entity on: " + gameObject.name);
             return false;
         }
         return entity.EntityType == type;
@@ -83,5 +81,4 @@ public class EntityHealthController : MonoBehaviour, IDamageable
     {
         return _health <= 0;
     }
-
 }

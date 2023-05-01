@@ -11,21 +11,23 @@ public class RangedEnemy : Enemy
     public override void Attack()
     {
         lastAttack = Time.time;
-        FireProjectileAtTarget();
+        // Account for animation frames before firign bullet
+        StartCoroutine(FireProjectileAtTarget());
     }
     
-    private void FireProjectileAtTarget()
+    IEnumerator  FireProjectileAtTarget()
     {
-        if (target == null) return;
-        // TODO: Animation
-        //animator.SetTrigger("attack");
+        yield return new WaitForSeconds(0.85f);
+        if (target != null)
+        {
+            Vector3 targetPos = target.transform.position;
+            Vector3 dir = ( targetPos - transform.position).normalized;
 
-        Vector3 targetPos = target.transform.position;
-        Vector3 dir = ( targetPos - transform.position).normalized;
-
-        GameObject proj = Instantiate(projectile, attackPoint.position, Quaternion.LookRotation(dir));
-        proj.transform.position = attackPoint.position;
-        proj.GetComponent<Rigidbody2D>().velocity = dir * shootVel;
-        proj.GetComponent<Projectile>().damage = stats.damage;
+            GameObject proj = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+            proj.transform.position = attackPoint.position;
+            projectile.transform.LookAt(target.transform.position);
+            proj.GetComponent<Rigidbody2D>().velocity = dir * shootVel;
+            proj.GetComponent<Projectile>().damage = stats.damage;
+        }
     }
 }
