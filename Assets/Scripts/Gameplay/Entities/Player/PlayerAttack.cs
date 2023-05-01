@@ -163,17 +163,5 @@ public class PlayerAttack : MonoBehaviour
     {
         attackState.Clear();
     }
-
-    private void OnDrawGizmos()
-    {
-        if (attackState != null)
-        {
-            Handles.Label(transform.position + new Vector3(1.5f, 1.0f), _debugCurrentStateString);
-        }
-
-        if (basicAttackPoint != null)
-        {
-            Gizmos.DrawWireSphere(basicAttackPoint.position, basicAttackRange);
-        }
-    }
+    
 }

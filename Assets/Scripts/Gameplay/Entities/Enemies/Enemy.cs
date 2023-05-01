@@ -80,14 +80,7 @@ public class Enemy : Entity
     {
         throw new NotImplementedException("Implement attack for enemy");
     }
-    private void OnDrawGizmos()
-    {
-        if (stateMachine == null) return;
-        Handles.Label(transform.position + new Vector3(0f, -1.0f), stateMachine.CurrentState.ToString());
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, stats.attackRange);
-    }
+    
     public void SetTarget(GameObject t)
     {
         this.target = t;

@@ -1,12 +1,8 @@
 using Cinemachine;
 using OTBG.Utility;
-using QFSW.QC.Editor.Tools;
 using Sirenix.OdinInspector;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class SpawnAreaRestrictions : MonoBehaviour
 {

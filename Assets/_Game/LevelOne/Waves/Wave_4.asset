@@ -15,7 +15,8 @@ MonoBehaviour:
   enemyGroups:
   - enemies:
     - {fileID: 7186282330859665704, guid: 708be148b187d9d4fa95ce60498e9423, type: 3}
+    - {fileID: 7186282330859665704, guid: 708be148b187d9d4fa95ce60498e9423, type: 3}
   - enemies:
     - {fileID: 7748415540689195311, guid: 62a77f16614484430a19d434f7da60ce, type: 3}
-    - {fileID: 0}
-  timeBetweenGroups: 0
+    - {fileID: 7748415540689195311, guid: 62a77f16614484430a19d434f7da60ce, type: 3}
+  timeBetweenGroups: 6

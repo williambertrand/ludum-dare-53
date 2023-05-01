@@ -73,13 +73,4 @@ public class EnemyMovement : MonoBehaviour
         theScale.x = facingRight ? 1 : -1;
         transform.localScale = theScale;
     }
-    private void OnDrawGizmos()
-    {
-        if (enemyRef != null && enemyRef.moveDest != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(enemyRef.moveDest, 0.25f);
-            Handles.Label(new Vector3(enemyRef.moveDest.x, enemyRef.moveDest.y - 0.5f), "Move Dest");
-        }
-    }
 }
