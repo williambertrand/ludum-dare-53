@@ -30,7 +30,6 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         spawnArea.StartWave();
         OnAreaStarted?.Invoke(currentArea);
         
-        CarriageController.Instance.MoveToNextLocation(currentArea.wagonPosition.position);
     }
 
     public void FinishSpawnArea()

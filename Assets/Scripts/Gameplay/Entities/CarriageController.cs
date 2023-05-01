@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using OTBG.Utility;
 using UnityEngine;
 
 public class CarriageController : MonoSingleton<CarriageController>
 {
+    private PlayerController playerController;
+
 
     private enum State
     {
@@ -14,7 +17,8 @@ public class CarriageController : MonoSingleton<CarriageController>
     }
 
     public float moveSpeed;
-    
+    public float speedyBoi;
+
     private State state;
     private Animator _animator;
     private Vector3 targetPosition;
@@ -22,12 +26,34 @@ public class CarriageController : MonoSingleton<CarriageController>
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        StartCoroutine(WaitForPlayer());
     }
 
-    // Start is called before the first frame update
+    private void OnEnable()
+    {
+        SpawnManager.OnAreaStarted += SpawnManager_OnAreaStarted;
+        SpawnManager.OnAreaFinished += SpawnManager_OnAreaFinished;
+    }
+
     void Start()
     {
-        state = State.Still;
+        state = State.Moving;
+    }
+
+    private void OnDisable()
+    {
+        SpawnManager.OnAreaStarted -= SpawnManager_OnAreaStarted;
+        SpawnManager.OnAreaFinished -= SpawnManager_OnAreaFinished;
+    }
+
+    public IEnumerator WaitForPlayer()
+    {
+        while (playerController == null)
+        {
+            playerController = FindObjectOfType<PlayerController>();
+            yield return null;
+        }
+
     }
 
     // Update is called once per frame
@@ -35,27 +61,49 @@ public class CarriageController : MonoSingleton<CarriageController>
     {
         switch (state)
         {
-            case State.Still:
-                break;
             case State.Moving:
-                var step =  moveSpeed * Time.deltaTime; 
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-
-                // Check if the position of the cube and sphere are approximately equal.
-                if (Vector3.Distance(transform.position, targetPosition) < 0.005f)
-                {
-                    // Swap the position of the cylinder.
-                    _animator.SetBool("moving", false);
-                    state = State.Still;
-                }
+                Movement();
                 break;
         }
     }
 
-    public void MoveToNextLocation(Vector3 location)
+    public void Movement()
     {
-        targetPosition = location;
-        _animator.SetBool("moving", true);
+        float distanceToPlayer = (playerController.transform.position - transform.position).x;
+        if (distanceToPlayer < 0)
+        {
+            ToggleMovementAnim(false);
+
+            return;
+        }
+
+        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+        ToggleMovementAnim(true);
+
+    }
+
+
+    private void SpawnManager_OnAreaFinished(SpawnArea obj)
+    {
         state = State.Moving;
+        ToggleMovementAnim(true);
+
+    }
+
+    private void SpawnManager_OnAreaStarted(SpawnArea obj)
+    {
+        transform.DOMove(obj.wagonPosition.position, speedyBoi).SetSpeedBased(true)
+            .OnStart(() => ToggleMovementAnim(true))
+            .OnComplete(() =>
+            {
+                ToggleMovementAnim(false);
+                state = State.Still;
+            });
+    }
+
+    public void ToggleMovementAnim(bool isMoving)
+    {
+        _animator.SetBool("moving", isMoving);
+
     }
 }

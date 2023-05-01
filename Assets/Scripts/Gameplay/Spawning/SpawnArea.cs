@@ -17,7 +17,6 @@ public class SpawnArea : MonoBehaviour
     public int numberOfEnemiesDefeated;
 
     private Coroutine coroutine_StartWaveLoop;
-
     private void Awake()
     {
         restrictions = GetComponent<SpawnAreaRestrictions>();
