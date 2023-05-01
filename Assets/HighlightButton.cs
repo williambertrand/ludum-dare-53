@@ -38,7 +38,7 @@ public class HighlightButton : MonoBehaviour, IPointerDownHandler, IPointerEnter
 
     public void PlayShotSound()
     {
-        //AudioManager.Instance.PlaySoundEffect()
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.ENEMY_2_GUNSHOT, true);
     }
 
     public void OnPointerDown(PointerEventData eventData)

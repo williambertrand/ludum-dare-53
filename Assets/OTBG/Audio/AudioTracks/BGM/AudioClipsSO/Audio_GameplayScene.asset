@@ -19,4 +19,4 @@ MonoBehaviour:
   isLooping: 1
   isRandomPitch: 0
   pitchVariance: 0
-  volume: 0.14
+  volume: 0.09

@@ -1,3 +1,4 @@
+using OTBG.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class RangedEnemy : Enemy
     
     IEnumerator FireProjectileAtTarget()
     {
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.ENEMY_2_ATTACK_GUNLOAD, true);
         yield return new WaitForSeconds(0.85f);
         if (target != null)
         {
@@ -27,6 +29,7 @@ public class RangedEnemy : Enemy
             Vector3 dir = ( targetPos - transform.position).normalized;
 
             GameObject proj = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+            AudioManager.Instance.PlaySoundEffect(SFXIDs.ENEMY_2_GUNSHOT, true);
             proj.transform.position = attackPoint.position;
             proj.GetComponent<Rigidbody2D>().velocity = dir * shootVel;
             proj.GetComponent<Projectile>().damage = stats.damage;
