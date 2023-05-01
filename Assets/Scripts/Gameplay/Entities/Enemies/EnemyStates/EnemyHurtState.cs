@@ -14,12 +14,12 @@ public class EnemyHurtState : EnemyState
         self = enemy;
     }
     
-    // TODO
     public override void Enter()
     {
         base.Enter();
-        // animator.SetTrigger("hurt");
-        
+        onEnter = Time.time;
+        Debug.Log("----- Entered hurt state");
+        animator.SetTrigger("hurt");
     }
 
     public override void Exit()

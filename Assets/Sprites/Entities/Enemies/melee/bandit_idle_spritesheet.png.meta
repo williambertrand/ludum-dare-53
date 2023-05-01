@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8dc33b42135d16e4d9835df943676a3d
+guid: eed49de5a42694842a2cac8e334365cb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_walk_0
+      name: bandit_idle_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8eb21e90410e9d641990da19f1c07e5b
-      internalID: -1943717114
+      spriteID: a907bce38bd008540a2d474ef3caaaf6
+      internalID: 957205989
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_1
+      name: bandit_idle_spritesheet_1
       rect:
         serializedVersion: 2
         x: 128
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca3b93e6180a49b4e8f857e4d359a083
-      internalID: 347251350
+      spriteID: 69ca328fcace0bf4cb3a6bacc9142be7
+      internalID: -378867678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_2
+      name: bandit_idle_spritesheet_2
       rect:
         serializedVersion: 2
         x: 256
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a3dcaaa4e9ab974aba0d434a0d81dd5
-      internalID: -640274605
+      spriteID: 16311cb10e2205d4eb2f5914171912e9
+      internalID: 1167210458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_3
+      name: bandit_idle_spritesheet_3
       rect:
         serializedVersion: 2
         x: 384
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1f8884d487036a48aa404c770724f22
-      internalID: -1474724148
+      spriteID: c5c6e124df073084fad80dc6761704c6
+      internalID: -1798080787
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_4
+      name: bandit_idle_spritesheet_4
       rect:
         serializedVersion: 2
         x: 512
@@ -202,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c854bbb7ed8900b4aad5975d427cb123
-      internalID: 996117396
+      spriteID: dc02ac0068759ec41bce2d65e0025700
+      internalID: 177544292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_5
+      name: bandit_idle_spritesheet_5
       rect:
         serializedVersion: 2
         x: 640
@@ -223,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d2ded5f575da744bad64e2fe878d751
-      internalID: -640686285
+      spriteID: 87a9a1188943fd64ca86543ed7ddca22
+      internalID: -1165451455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_6
+      name: bandit_idle_spritesheet_6
       rect:
         serializedVersion: 2
         x: 768
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebc6102418472614e9cbce113694cf1c
-      internalID: 1700632642
+      spriteID: 1092f59a9e0040c478600a8376d60ba1
+      internalID: 661519248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_7
+      name: bandit_idle_spritesheet_7
       rect:
         serializedVersion: 2
         x: 896
@@ -265,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23d43c552e1c58f41b4caa99a573b5a7
-      internalID: 1013480831
+      spriteID: 9ddd94218ef126041b93f218584179b8
+      internalID: 888805341
       vertices: []
       indices: 
       edges: []
@@ -282,14 +282,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_walk_6: 1700632642
-      player_walk_4: 996117396
-      player_walk_7: 1013480831
-      player_walk_5: -640686285
-      player_walk_3: -1474724148
-      player_walk_2: -640274605
-      player_walk_1: 347251350
-      player_walk_0: -1943717114
+      bandit_idle_spritesheet_7: 888805341
+      bandit_idle_spritesheet_3: -1798080787
+      bandit_idle_spritesheet_5: -1165451455
+      bandit_idle_spritesheet_6: 661519248
+      bandit_idle_spritesheet_4: 177544292
+      bandit_idle_spritesheet_2: 1167210458
+      bandit_idle_spritesheet_1: -378867678
+      bandit_idle_spritesheet_0: 957205989
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -80,8 +80,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void HandleAnimationForAttack()
     {
-        Debug.Log("attack state size: " + attackState.Count);
-        
         if (attackState.Count == 1)
         {
             animator.SetTrigger("attack");
@@ -109,6 +107,7 @@ public class PlayerAttack : MonoBehaviour
         // Apply damge to enemies
         foreach (Collider2D c in hitEnemies)
         {
+            Debug.Log("Hit: " + c.gameObject.name);
             IDamageable enemyDamagable = c.GetComponent<IDamageable>();
            
             if (enemyDamagable.IsAlly(entity.EntityType) || enemyDamagable.IsDead())
@@ -120,6 +119,7 @@ public class PlayerAttack : MonoBehaviour
                 data.damageDealer = transform;
                 data.target = c.transform;
                 data.damageDealt = damage;
+                Debug.Log("sending damge: " + data.ToString());
                 enemyDamagable.TakeDamage(data);
             }
         }

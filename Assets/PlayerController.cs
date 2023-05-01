@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct PlayerStats
@@ -56,15 +55,15 @@ public class PlayerController : Entity
     
     private void OnEnable()
     {
-        Entity.OnDamaged += Player_OnDamaged;
+        _entityHealthController.OnDamaged += Player_OnDamaged;
     }   
 
     private void OnDisable()
     {
-        Entity.OnDamaged -= Player_OnDamaged;
+        _entityHealthController.OnDamaged -= Player_OnDamaged;
     }
 
-    private void Player_OnDamaged(Entity e, DamageData d)
+    private void Player_OnDamaged(DamageData d)
     {
         _entityHealthController.SetInvulnerable(true);
         _stunnedAt = Time.time;

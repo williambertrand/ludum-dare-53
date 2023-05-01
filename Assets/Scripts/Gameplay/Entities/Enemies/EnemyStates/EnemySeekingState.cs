@@ -26,7 +26,7 @@ public class EnemySeekingState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        //animator.SetFloat("move", 0);
+        animator.SetFloat("speed", 0);
         self.Stop();
     }
 

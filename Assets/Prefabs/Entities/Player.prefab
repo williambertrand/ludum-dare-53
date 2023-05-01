@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535332774037039398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.624, y: -0.153, z: 0}
+  m_LocalPosition: {x: 0.725, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -142,7 +142,7 @@ MonoBehaviour:
     m_Bits: 128
   basicAttackPoint: {fileID: 2628863303439292346}
   basicAttackDamage: 10
-  basicAttackRange: 0.3
+  basicAttackRange: 0.7
   basicCombo:
     attackTypes: 000000000000000000000000
     damage: 20
@@ -245,14 +245,14 @@ SpriteRenderer:
   m_SortingLayerID: -129858385
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1506813450, guid: d1e84809e6cf94dc5a5dc7f765ae74b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

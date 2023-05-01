@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class EnemyMovement : MonoBehaviour
     private Enemy enemyRef;
     private EnemyStateHandler stateMachine;
 
+    private Animator animator;
+
     private float moveSpeed;
     private Vector3 moveDest;
 
@@ -17,11 +20,16 @@ public class EnemyMovement : MonoBehaviour
 
     private bool facingRight;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         enemyRef = GetComponent<Enemy>();
+        animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        
         // Set up movement relevant fields based on enemy stats
 
         moveSpeed = enemyRef.stats.moveSpeed;
@@ -31,19 +39,11 @@ public class EnemyMovement : MonoBehaviour
 
     public void HandleMoveUpdate()
     {
-        //Please don't use analogies. I can't read this. What does dX mean. I'm assuming directionX
-        //float dX = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
-        //float dY = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
-
         float xDirection = enemyRef.moveDest.x - transform.position.x > 0 ? moveSpeed : -1 * moveSpeed;
         float yDirection = enemyRef.moveDest.y - transform.position.y > 0 ? moveSpeed : -1 * moveSpeed;
-
-
-
-        // TODO: Should players and enemies share a y speed factor?
-        //For now, no, they should just have an internal variable that controls it. No need for a global one in GameJams
+        
         targetVelocity = new Vector2(xDirection, yDirection * 0.75f);
-
+        animator.SetFloat("speed", targetVelocity.magnitude);
         // If input is left or right, set facing right.
         if (xDirection > 0)
             facingRight = true;
@@ -60,6 +60,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void StopMovement()
     {
+        animator.SetFloat("speed", 0);
         targetVelocity = Vector3.zero;
     }
 

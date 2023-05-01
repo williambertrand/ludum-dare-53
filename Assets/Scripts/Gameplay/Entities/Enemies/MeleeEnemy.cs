@@ -6,26 +6,19 @@ public class MeleeEnemy : Enemy
 {
 
     public Collider2D attackCollider;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override void Attack()
     {
-        Debug.Log("Attack start!"); 
         lastAttack = Time.deltaTime;
         // Detect enemies in range of attack
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
+        StartCoroutine(AttackAfterPrep());
+    }
 
+    //TODO: Delayed attack with movement towards player
+    private void HandleAttack()
+    {
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, stats.attackRange);
+        
         // Apply damge to enemies
         foreach (Collider2D c in hitObjects)
         {
@@ -42,11 +35,6 @@ public class MeleeEnemy : Enemy
             data.damageDealt = stats.damage;
             damagable.TakeDamage(data);
         }
-    }
-
-    private void HandleAttack()
-    {
-        
     }
     
     IEnumerator AttackAfterPrep()

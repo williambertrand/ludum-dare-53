@@ -71,6 +71,11 @@ public class EntityHealthController : MonoBehaviour, IDamageable
 
     public bool IsAlly(EntityType type)
     {
+        if (entity == null)
+        {
+            Debug.Log("Null entity on: " + gameObject.name);
+            return false;
+        }
         return entity.EntityType == type;
     }
 

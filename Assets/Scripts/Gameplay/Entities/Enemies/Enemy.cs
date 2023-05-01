@@ -2,11 +2,17 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 
+public enum TargetPriorityType
+{
+    Player,
+    Carriage
+}
 
 public class Enemy : Entity
 {
-    [FoldoutGroup("Enemy Stats")] public GameObject priorityTarget;
+    [FoldoutGroup("Enemy Stats")] public TargetPriorityType priorityTarget;
     [FoldoutGroup("Enemy Stats")] public GameObject target;
     [FoldoutGroup("Enemy Stats")] public EnemyStats stats;
     [FoldoutGroup("Enemy Stats")] public Vector3 moveDest;
@@ -20,19 +26,19 @@ public class Enemy : Entity
     [FoldoutGroup("References")] public EnemyIsAttackingState isAttackingState;
     [FoldoutGroup("References")] public EnemyHurtState hurtState;
     
-    
-
     private Animator animator;
     private EnemyMovement movement;
+    private EntityHealthController healthController;
 
-    private void Awake()
+    protected void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
         movement = GetComponent<EnemyMovement>();
+        healthController = GetComponent<EntityHealthController>();
     }
 
-    void Start()
+    protected void Start()
     {
         stateMachine = new EnemyStateHandler();
         seekingState = new EnemySeekingState(this, stateMachine, animator);
@@ -83,22 +89,23 @@ public class Enemy : Entity
 
     public GameObject GetTarget()
     {
-        if (priorityTarget != null)
-            return priorityTarget;
+        // TODO: Need a ref to carriage
+        if (priorityTarget == TargetPriorityType.Carriage)
+            return CarriageController.Instance.gameObject;
         return target;
     }
     
     private void OnEnable()
     {
-        Entity.OnDamaged += Enemy_OnDamaged;
+        healthController.OnDamaged += Enemy_OnDamaged;
     }   
 
     private void OnDisable()
     {
-        Entity.OnDamaged -= Enemy_OnDamaged;
+        healthController.OnDamaged -= Enemy_OnDamaged;
     }
 
-    private void Enemy_OnDamaged(Entity e, DamageData d)
+    private void Enemy_OnDamaged(DamageData d)
     {
         stateMachine.ChangeState(hurtState);
     }

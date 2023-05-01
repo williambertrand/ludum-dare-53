@@ -27,9 +27,8 @@ public class EnemyCombatState : EnemyState
         if (attackIsCoolingDown) return;
         // Check if within attack range
         float attackDist = self.transform.position.DistanceSquared(self.GetTarget().transform.position);
-        if (attackDist <= self.stats.attackRange * self.stats.attackRange)
+        if (attackDist <= self.stats.tryAttackRange * self.stats.tryAttackRange)
         {
-            self.Attack();
             self.stateMachine.ChangeState(self.isAttackingState);
         } else
         {

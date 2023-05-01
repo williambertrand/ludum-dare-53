@@ -10,6 +10,7 @@ public struct EnemyStats
     public float maxHealth;
     public float damage;
     public float attackRange;
+    public float tryAttackRange; // Range to try an attack
     public float attackSpeed;
     public float attackDuration;
     public float stunRecoveryTime;

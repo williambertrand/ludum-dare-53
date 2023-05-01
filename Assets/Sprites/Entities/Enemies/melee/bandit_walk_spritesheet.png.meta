@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8dc33b42135d16e4d9835df943676a3d
+guid: 91942d3319be906498b233172f3f37de
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_walk_0
+      name: bandit_walk_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8eb21e90410e9d641990da19f1c07e5b
-      internalID: -1943717114
+      spriteID: 8a285e6e939b11b4b8456c6c5edadcba
+      internalID: -601182309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_1
+      name: bandit_walk_spritesheet_1
       rect:
         serializedVersion: 2
         x: 128
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca3b93e6180a49b4e8f857e4d359a083
-      internalID: 347251350
+      spriteID: 9b79d217637021f438bd1fa24623e6df
+      internalID: 1313142592
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_2
+      name: bandit_walk_spritesheet_2
       rect:
         serializedVersion: 2
         x: 256
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a3dcaaa4e9ab974aba0d434a0d81dd5
-      internalID: -640274605
+      spriteID: e7f4294ddd4ac1d4fac720f8b3ea1602
+      internalID: -1974134485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_3
+      name: bandit_walk_spritesheet_3
       rect:
         serializedVersion: 2
         x: 384
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1f8884d487036a48aa404c770724f22
-      internalID: -1474724148
+      spriteID: 6e5eab0cbbb17d441acc3c0d29b6b807
+      internalID: 229853154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_4
+      name: bandit_walk_spritesheet_4
       rect:
         serializedVersion: 2
         x: 512
@@ -202,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c854bbb7ed8900b4aad5975d427cb123
-      internalID: 996117396
+      spriteID: c58304ad39231cb46964995be69fbb44
+      internalID: 129939727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_5
+      name: bandit_walk_spritesheet_5
       rect:
         serializedVersion: 2
         x: 640
@@ -223,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d2ded5f575da744bad64e2fe878d751
-      internalID: -640686285
+      spriteID: 392212b8814c45746a308c0848f2f084
+      internalID: 298828869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_6
+      name: bandit_walk_spritesheet_6
       rect:
         serializedVersion: 2
         x: 768
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebc6102418472614e9cbce113694cf1c
-      internalID: 1700632642
+      spriteID: a5c3260e52e701b4384fef5c1af2ce10
+      internalID: 660605961
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_walk_7
+      name: bandit_walk_spritesheet_7
       rect:
         serializedVersion: 2
         x: 896
@@ -265,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23d43c552e1c58f41b4caa99a573b5a7
-      internalID: 1013480831
+      spriteID: 661c92ff69290414387bb2f7d9eac5f6
+      internalID: -717395454
       vertices: []
       indices: 
       edges: []
@@ -282,14 +282,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_walk_6: 1700632642
-      player_walk_4: 996117396
-      player_walk_7: 1013480831
-      player_walk_5: -640686285
-      player_walk_3: -1474724148
-      player_walk_2: -640274605
-      player_walk_1: 347251350
-      player_walk_0: -1943717114
+      bandit_walk_spritesheet_3: 229853154
+      bandit_walk_spritesheet_0: -601182309
+      bandit_walk_spritesheet_1: 1313142592
+      bandit_walk_spritesheet_2: -1974134485
+      bandit_walk_spritesheet_4: 129939727
+      bandit_walk_spritesheet_6: 660605961
+      bandit_walk_spritesheet_7: -717395454
+      bandit_walk_spritesheet_5: 298828869
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
