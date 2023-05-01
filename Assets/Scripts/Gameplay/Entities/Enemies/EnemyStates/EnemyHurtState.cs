@@ -7,11 +7,13 @@ public class EnemyHurtState : EnemyState
     protected Animator animator;
     protected Enemy self;
     private float onEnter;
-
-    public EnemyHurtState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator) : base(enemy, stateMachine)
+    private float duration;
+    
+    public EnemyHurtState(Enemy enemy, EnemyStateHandler stateMachine, Animator animator, float duration) : base(enemy, stateMachine)
     {
         this.animator = animator;
         self = enemy;
+        this.duration = duration;
     }
     
     public override void Enter()
@@ -36,7 +38,7 @@ public class EnemyHurtState : EnemyState
             return;
         }
         
-        if (Time.time - onEnter >= self.stats.stunRecoveryTime)
+        if (Time.time - onEnter >= duration)
         {
             stateMachine.ChangeState(self.combatState);
         }

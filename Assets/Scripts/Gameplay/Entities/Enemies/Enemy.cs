@@ -25,6 +25,7 @@ public class Enemy : Entity
     [FoldoutGroup("References")] public EnemyCombatState combatState;
     [FoldoutGroup("References")] public EnemyIsAttackingState isAttackingState;
     [FoldoutGroup("References")] public EnemyHurtState hurtState;
+    [FoldoutGroup("References")] public EnemyHurtState stunnedState;
     
     private Animator animator;
     private EnemyMovement movement;
@@ -46,7 +47,8 @@ public class Enemy : Entity
         combatState = new EnemyCombatState(this, stateMachine, animator);
         isAttackingState = new EnemyIsAttackingState(this, stateMachine, animator);
         idleState = new EnemyIdleState(this, stateMachine, animator);
-        hurtState = new EnemyHurtState(this, stateMachine, animator);
+        hurtState = new EnemyHurtState(this, stateMachine, animator, 0.25f);
+        stunnedState = new EnemyHurtState(this, stateMachine, animator, stats.stunRecoveryTime);
         stateMachine.Initialize(idleState);
     }
 
@@ -106,7 +108,14 @@ public class Enemy : Entity
 
     public void Enemy_OnDamaged(DamageData d)
     {
-        stateMachine.ChangeState(hurtState);
+        if (d.isCombo)
+        {
+            stateMachine.ChangeState(stunnedState);
+        }
+        else
+        {
+            stateMachine.ChangeState(hurtState);   
+        }
     }
 
     public bool IsDead()

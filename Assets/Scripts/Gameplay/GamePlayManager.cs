@@ -25,13 +25,11 @@ public class GamePlayManager : MonoSingleton<GamePlayManager>
 
     public void PlayAgain()
     {
-        Debug.Log("PLAY AGAIN!!!");
         SceneManager.LoadScene(GameScenes.GAMEPLAY_SCENE);
     }
     
     public void ReturnToMenu()
     {
-        Debug.Log("MENU!!!");
         SceneManager.LoadScene(GameScenes.MENU_SCENE);
     }
 }

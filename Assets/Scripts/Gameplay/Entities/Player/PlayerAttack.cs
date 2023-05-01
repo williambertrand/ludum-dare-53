@@ -71,11 +71,11 @@ public class PlayerAttack : MonoBehaviour
         {
             // Execute combo
             _debugCurrentStateString = "Hit Basic Combo!";
-            HandleAttack(basicCombo.damage);
+            HandleAttack(true);
             attackState.Clear();
         } else
         {
-            HandleAttack(basicAttackDamage);
+            HandleAttack(false);
         }
     }
 
@@ -100,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    private void HandleAttack(int damage)
+    private void HandleAttack(bool isCombo)
     {
         // Detect enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers);
@@ -120,7 +120,8 @@ public class PlayerAttack : MonoBehaviour
                 DamageData data = new DamageData();
                 data.damageDealer = transform;
                 data.target = c.transform;
-                data.damageDealt = damage;
+                data.damageDealt = isCombo ? basicCombo.damage : basicAttackDamage;
+                data.isCombo = isCombo;
                 enemyDamagable.TakeDamage(data);
 
                 // Only allow an attack to hit a single enemy
