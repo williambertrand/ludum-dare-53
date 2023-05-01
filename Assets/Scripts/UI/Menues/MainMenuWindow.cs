@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuWindow : Menu
 {
-    public string gameplaySceneName;
 
     public override void Open()
     {
@@ -17,7 +16,7 @@ public class MainMenuWindow : Menu
 
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(gameplaySceneName);
+        SceneManager.LoadSceneAsync(GameScenes.GAMEPLAY_SCENE);
     }
 
     public void ExitGame()
