@@ -122,7 +122,6 @@ GameObject:
   - component: {fileID: 7748415540689195311}
   - component: {fileID: 7748415540689195308}
   - component: {fileID: 7748415540689195301}
-  - component: {fileID: 7748415540689195300}
   m_Layer: 7
   m_Name: RangedEnemy_Wagon
   m_TagString: Untagged
@@ -263,6 +262,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   _health: 0
   _maxHealth: 50
+  canTakeDamage: 0
 --- !u!212 &7748415540689195301
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -129858385
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1944441812, guid: 10caaf83ad164904a9ecbb34fa806edf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -315,21 +315,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7748415540689195300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7748415540689195309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b763ad296455254faed6bcbb2a359aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EntityType: 1
-  healthController: {fileID: 0}
-  hasInit: 0
 --- !u!1 &7748415540992649912
 GameObject:
   m_ObjectHideFlags: 0

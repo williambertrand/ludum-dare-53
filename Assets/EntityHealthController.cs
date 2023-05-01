@@ -17,6 +17,7 @@ public class EntityHealthController : MonoBehaviour, IDamageable
     private float _maxHealth;
 
     private bool _isInvulnerable;
+    public bool canTakeDamage;
 
     //Call this from Spawner
     public void Initialise()
@@ -33,6 +34,9 @@ public class EntityHealthController : MonoBehaviour, IDamageable
     {
         if (IsDead() || IsInvunerable())
             return;
+
+        if (!canTakeDamage)
+            damageData.damageDealt = 0;
 
         SetHealth(new ValueChange(_health -= damageData.damageDealt, _maxHealth));
         OnDamaged?.Invoke(damageData);

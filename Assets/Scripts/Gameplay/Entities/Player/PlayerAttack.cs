@@ -5,11 +5,14 @@ using UnityEditor;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using System.Linq;
+using OTBG.Audio;
 
 public class PlayerAttack : MonoBehaviour
 {
     [FoldoutGroup("References"), SerializeField]
     private Entity entity;
+    [FoldoutGroup("References"), SerializeField]
+    private PlayerController playerController;
 
     [FoldoutGroup("Combat"), SerializeField]
     private float attackCooldown;
@@ -20,6 +23,9 @@ public class PlayerAttack : MonoBehaviour
     [FoldoutGroup("Combat"), SerializeField] private Transform basicAttackPoint;
     [FoldoutGroup("Combat"), SerializeField] private int basicAttackDamage;
     [FoldoutGroup("Combat"), SerializeField] private float basicAttackRange;
+    [FoldoutGroup("Combat"), SerializeField] private bool canDealDamage;
+
+
 
     [FoldoutGroup("Combo Management")]
     [SerializeField] private Combo basicCombo;
@@ -37,6 +43,26 @@ public class PlayerAttack : MonoBehaviour
         //Always do references in awake :)
         animator = GetComponent<Animator>();
         entity = GetComponent<Entity>();
+        playerController = GetComponent<PlayerController>();
+
+    }
+
+    public IEnumerator WaitForHealthController()
+    {
+        while(entity.healthController == null)
+            yield return null;
+
+        entity.healthController.OnDamaged += HealthController_OnDamaged;
+    }
+
+    private void OnDisable()
+    {
+        entity.healthController.OnDamaged -= HealthController_OnDamaged;
+    }
+
+    private void HealthController_OnDamaged(DamageData obj)
+    {
+        ClearAttackState();
     }
 
     // Start is called before the first frame update
@@ -62,6 +88,9 @@ public class PlayerAttack : MonoBehaviour
     // TODO: if other attack types are added (e.g. heavy, kick, throw) then add a type param here
     private void Attack()
     {
+        if (!CanAttack())
+            return;
+        
         lastAttackTime = Time.time;
         attackState.Push(new AttackInput(AttackType.Basic, Time.time));
         _debugCurrentStateString += AttackType.Basic.ToString() + ", ";
@@ -103,6 +132,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void HandleAttack(int damage)
     {
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.PLAYER_ATTACK,true);
+
+        if (!canDealDamage)
+            return;
+
         // Detect enemies in range of attack
         List<Collider2D> hitEnemies = Physics2D.OverlapCircleAll(basicAttackPoint.position, basicAttackRange, enemyLayers).ToList().Take(3).ToList();
 
@@ -159,6 +193,12 @@ public class PlayerAttack : MonoBehaviour
             _debugCurrentStateString = "";
             attackState.Clear();
         }
+    }
+
+    public bool CanAttack()
+    {
+        if (playerController._isStunned) return false;
+        return true;
     }
 
     // Can be called o ntaking damage to null out the combo state
