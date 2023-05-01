@@ -182,8 +182,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.576743, y: -0.051922083}
-  m_Size: {x: 0.9040072, y: 1.5808094}
+  m_Offset: {x: -0.5384731, y: 0.035552263}
+  m_Size: {x: 1.199234, y: 1.755758}
   m_Direction: 0
 --- !u!95 &7748415540689195305
 Animator:
@@ -237,7 +237,7 @@ MonoBehaviour:
   stats:
     moveSpeed: 2
     maxHealth: 0
-    damage: 3
+    damage: 2
     attackRange: 6
     tryAttackRange: 10
     attackSpeed: 3
@@ -302,7 +302,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -129858385
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1944441812, guid: 10caaf83ad164904a9ecbb34fa806edf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

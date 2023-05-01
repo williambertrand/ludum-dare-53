@@ -114,7 +114,6 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemyDamagable != null)
             {
-
                 // Show effect on enemy head
                 EffectsManager.Instance.SpawnHitEffect(c.transform.position + new Vector3(0.0f, 0.5f));
                 
@@ -123,6 +122,9 @@ public class PlayerAttack : MonoBehaviour
                 data.target = c.transform;
                 data.damageDealt = damage;
                 enemyDamagable.TakeDamage(data);
+
+                // Only allow an attack to hit a single enemy
+                return;
             }
         }
     }
