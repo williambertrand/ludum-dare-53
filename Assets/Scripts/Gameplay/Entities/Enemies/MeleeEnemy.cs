@@ -40,7 +40,7 @@ public class MeleeEnemy : Enemy
     IEnumerator AttackAfterPrep()
     {
         yield return new WaitForSeconds(1);
-        HandleAttack();
+        if (!IsDead()) HandleAttack();
     }
 
 }
