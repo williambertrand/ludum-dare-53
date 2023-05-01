@@ -263,6 +263,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   _health: 0
   _maxHealth: 50
+  canTakeDamage: 1
 --- !u!212 &7748415540689195301
 SpriteRenderer:
   m_ObjectHideFlags: 0

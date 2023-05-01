@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf553dc264a31a45a0a07e3c0282bc9, type: 3}
+  m_Name: Audio_Player_Attack
+  m_EditorClassIdentifier: 
+  id: player-attack
+  constName: PLAYER_ATTACK
+  clips:
+  - {fileID: 8300000, guid: 459b8deb9fc00544e8e12eb5ea33e0a7, type: 3}
+  - {fileID: 8300000, guid: 4be55af99ffa3a5459eb0960de7a7d75, type: 3}
+  - {fileID: 8300000, guid: 7aab28c27a49fb54cac20ff02be05aa3, type: 3}
+  isLooping: 0
+  isRandomPitch: 1
+  pitchVariance: 0.15
+  volume: 0.194

@@ -15,7 +15,7 @@ public class RangedEnemy : Enemy
         StartCoroutine(FireProjectileAtTarget());
     }
     
-    IEnumerator  FireProjectileAtTarget()
+    IEnumerator FireProjectileAtTarget()
     {
         yield return new WaitForSeconds(0.85f);
         if (target != null)

@@ -19,6 +19,7 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
     [FoldoutGroup("References"), SerializeField] private Animator animator;
     [FoldoutGroup("References"), SerializeField] private Rigidbody2D rigidBody;
     [FoldoutGroup("References"), SerializeField] private PlayerAttack playerAttack;
+    [FoldoutGroup("References"), SerializeField] private PlayerController playerController;
 
     [FoldoutGroup("Movement")] public PlayerState currentState;
     [FoldoutGroup("Movement"),SerializeField] private float moveSpeed;
@@ -40,6 +41,7 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
         animator = GetComponent<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
         _collider2D = GetComponent<Collider2D>();
+        playerController = GetComponent<PlayerController>();
 
         isFacingRight = true;
         currentState = PlayerState.Normal;
@@ -80,11 +82,15 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
 
     private void Normal()
     {
-        if (!CanMove())
-            return;
-        //These will get both the WASD and Arrow keys respectively, Better than giant If statement
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
+
+        if (!CanMove())
+        {
+            moveDir = Vector3.zero;
+            return;
+        }
+        //These will get both the WASD and Arrow keys respectively, Better than giant If statement
 
         moveDir = new Vector3(moveX, moveY).normalized;
         moveDir.y *= verticalFactor;
@@ -110,6 +116,7 @@ public class PlayerMovementController : MonoSingleton<PlayerMovementController>
 
     public bool CanMove()
     {
+        if (playerController._isStunned) return false;
         //Could you implement something like this in the attackController. This way we can cleanly organise it :)
         //if (playerAttack.isPlayerAttacking) return false;
         return true;

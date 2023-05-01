@@ -87,7 +87,8 @@ MonoBehaviour:
   healthController: {fileID: 0}
   hasInit: 0
   stats:
-    recoveryTime: 1
+    recoveryTime: 0.45
+  _isStunned: 0
 --- !u!114 &1597138755290648339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +104,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   _health: 0
   _maxHealth: 15
+  canTakeDamage: 1
 --- !u!114 &2779911751568797474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +120,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   rigidBody: {fileID: 0}
   playerAttack: {fileID: 0}
+  playerController: {fileID: 0}
   currentState: 0
   moveSpeed: 5
   verticalFactor: 0.6
@@ -136,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
+  playerController: {fileID: 0}
   attackCooldown: 0.2
   enemyLayers:
     serializedVersion: 2
@@ -143,6 +147,7 @@ MonoBehaviour:
   basicAttackPoint: {fileID: 2628863303439292346}
   basicAttackDamage: 10
   basicAttackRange: 0.7
+  canDealDamage: 1
   basicCombo:
     attackTypes: 000000000000000000000000
     damage: 20
@@ -243,7 +248,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -129858385
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1506813450, guid: d1e84809e6cf94dc5a5dc7f765ae74b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

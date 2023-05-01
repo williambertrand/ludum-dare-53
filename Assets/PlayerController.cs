@@ -3,6 +3,8 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using OTBG.UI.Utility;
+using OTBG.Audio;
+using Mono.CSharp;
 
 [System.Serializable]
 public struct PlayerStats
@@ -18,11 +20,17 @@ public class PlayerController : Entity
     [FoldoutGroup("Player Stats")] public PlayerStats stats;
 
     private Animator _animator;
-    private bool _isStunned;
+    public bool _isStunned;
     private float _stunnedAt;
 
     public override void HealthController_OnHealthChanged(ValueChange obj)
     {
+        if(obj.GetPercentage() < 0.4f)
+        {
+            if (!AudioManager.Instance.IsSFXClipPlayingAlready(SFXIDs.PLAYER_LOW_HEALTH))
+                AudioManager.Instance.PlaySoundEffect(SFXIDs.PLAYER_LOW_HEALTH, false);
+        }
+
         OnHealthChanged?.Invoke(obj);
         base.HealthController_OnHealthChanged(obj);
     }
@@ -68,6 +76,8 @@ public class PlayerController : Entity
 
     private void Player_OnDamaged(DamageData d)
     {
+        AudioManager.Instance.PlaySoundEffect(SFXIDs.PLAYER_DAMAGED, true);
+
         _entityHealthController.SetInvulnerable(true);
         _stunnedAt = Time.time;
         _isStunned = true;
