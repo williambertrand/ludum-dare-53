@@ -31,13 +31,11 @@ public class GamePlayManager : MonoSingleton<GamePlayManager>
 
     public void PlayAgain()
     {
-        Debug.Log("PLAY AGAIN!!!");
         FadeLoader.Instance.LoadLevel(GameScenes.GAMEPLAY_SCENE);
     }
     
     public void ReturnToMenu()
     {
-        Debug.Log("MENU!!!");
         FadeLoader.Instance.LoadLevel(GameScenes.MENU_SCENE);
     }
 
