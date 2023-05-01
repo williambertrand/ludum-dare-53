@@ -1,37 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
+using OTBG.Audio;
 using OTBG.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GamePlayManager : MonoSingleton<GamePlayManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        PlayerController.OnHealthChanged += Entity_OnDamaged;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        PlayAudio();
+    }
+
+
+    private void OnDisable()
+    {
+        PlayerController.OnHealthChanged -= Entity_OnDamaged;
+        StopAudio();
     }
 
     public void OnPlayerDeath()
     {
-        SceneManager.LoadScene(GameScenes.GAME_OVER_SCENE);
+        FadeLoader.Instance.LoadLevel(GameScenes.GAME_OVER_SCENE);
     }
 
     public void PlayAgain()
     {
         Debug.Log("PLAY AGAIN!!!");
-        SceneManager.LoadScene(GameScenes.GAMEPLAY_SCENE);
+        FadeLoader.Instance.LoadLevel(GameScenes.GAMEPLAY_SCENE);
     }
     
     public void ReturnToMenu()
     {
         Debug.Log("MENU!!!");
-        SceneManager.LoadScene(GameScenes.MENU_SCENE);
+        FadeLoader.Instance.LoadLevel(GameScenes.MENU_SCENE);
+    }
+
+    public void PlayAudio()
+    {
+        AudioManager.Instance.PlayMusicTrack(MusicTrackIDs.BGM_AMBIENCE);
+        AudioManager.Instance.PlayMusicTrack(MusicTrackIDs.BGM_GAMEPLAY);
+    }
+
+    public void StopAudio()
+    {
+        AudioManager.Instance.StopMusicTrack(MusicTrackIDs.BGM_AMBIENCE);
+        AudioManager.Instance.StopMusicTrack(MusicTrackIDs.BGM_GAMEPLAY);
+    }
+
+
+
+    private void Entity_OnDamaged(ValueChange change)
+    {
+        if (change.value <= 0)
+            OnPlayerDeath();
     }
 }

@@ -1,3 +1,4 @@
+using OTBG.Audio;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -11,8 +12,20 @@ public class ComboManager : MonoBehaviour
     public static event Action<ComboTracking> OnComboChanged;
 
     public List<ComboTracking> tracking = new List<ComboTracking>();
-
-    public int currentCombo;
+    private ComboTracking currentCombo;
+    public ComboTracking CurrentCombo
+    {
+        get => currentCombo;
+        set
+        {
+            if(currentCombo != value)
+            {
+                currentCombo = value;
+                PlayAudioFileFromCombo(value);
+            }
+        }
+    }
+    public int currentComboIndex;
 
     public void OnEnable()
     {
@@ -27,22 +40,23 @@ public class ComboManager : MonoBehaviour
     [Button]
     public void AddToCombo()
     {
-        currentCombo++;
+        currentComboIndex++;
         AnnounceComboChange();
     }
 
     [Button]
     public void LoseCombo()
     {
-        currentCombo = 0;
+        currentComboIndex = 0;
         AnnounceComboChange();
     }
 
     public void AnnounceComboChange()
     {
-        ComboTracking tracking = GetComboTracking(currentCombo);
+        ComboTracking tracking = GetComboTracking(currentComboIndex);
+        CurrentCombo = tracking;
         print(tracking.comboName);
-        OnComboChanged?.Invoke(GetComboTracking(currentCombo));
+        OnComboChanged?.Invoke(GetComboTracking(currentComboIndex));
     }
 
     public ComboTracking GetComboTracking(int currentCombo)
@@ -58,6 +72,14 @@ public class ComboManager : MonoBehaviour
         if (obj.EntityType == EntityType.Enemy)
             AddToCombo();
     }
+
+    public void PlayAudioFileFromCombo(ComboTracking combo)
+    {
+        if (combo.audioFile == null)
+            return;
+
+        AudioManager.Instance.PlaySoundEffect(combo.audioFile, true);
+    }
 }
 
 [System.Serializable]
@@ -66,6 +88,7 @@ public class ComboTracking
     public string comboName;
     public int comboReq;
     public Sprite comboSprite;
+    public AudioClipSO audioFile;
 }
 
 
