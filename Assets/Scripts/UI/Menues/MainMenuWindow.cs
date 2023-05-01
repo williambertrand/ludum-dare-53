@@ -16,7 +16,7 @@ public class MainMenuWindow : Menu
 
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(GameScenes.GAMEPLAY_SCENE);
+        FadeLoader.Instance.LoadLevel(GameScenes.GAMEPLAY_SCENE);
     }
 
     public void ExitGame()

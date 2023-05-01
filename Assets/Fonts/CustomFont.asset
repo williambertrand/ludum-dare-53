@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Version: 1.1.0
   m_SourceFontFileGUID: 7b29088eb3cae8e4dac72276f32da198
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 7b29088eb3cae8e4dac72276f32da198, type: 3}
-  m_SourceFontFile: {fileID: 12800000, guid: 7b29088eb3cae8e4dac72276f32da198, type: 3}
-  m_AtlasPopulationMode: 1
+  m_SourceFontFile: {fileID: 0}
+  m_AtlasPopulationMode: 0
   m_FaceInfo:
     m_FaceIndex: 0
     m_FamilyName: Office Code Pro
@@ -97,8 +97,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 286
+      m_X: 219
+      m_Y: 436
       m_Width: 47
       m_Height: 68
     m_Scale: 1
@@ -111,8 +111,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 66
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 51
-      m_Y: 427
+      m_X: 292
+      m_Y: 437
       m_Width: 43
       m_Height: 66
     m_Scale: 1
@@ -125,51 +125,51 @@ MonoBehaviour:
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 52
-      m_Y: 286
+      m_X: 354
+      m_Y: 439
       m_Width: 48
       m_Height: 67
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 269
     m_Metrics:
-      m_Width: 49.8125
-      m_Height: 68.40625
+      m_Width: 56.63
+      m_Height: 71.03
       m_HorizontalBearingX: 7.59375
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 2
-      m_Width: 49
-      m_Height: 68
+      m_X: 432
+      m_Y: 430
+      m_Width: 57
+      m_Height: 69
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 270
     m_Metrics:
-      m_Width: 50.703125
-      m_Height: 66
+      m_Width: 55.74
+      m_Height: 74.6
       m_HorizontalBearingX: 7.09375
       m_HorizontalBearingY: 66
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 53
-      m_Y: 215
-      m_Width: 51
-      m_Height: 66
+      m_X: 236
+      m_Y: 344
+      m_Width: 61
+      m_Height: 78
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 271
     m_Metrics:
-      m_Width: 51.90625
+      m_Width: 56.55
       m_Height: 67.203125
       m_HorizontalBearingX: 7.09375
       m_HorizontalBearingY: 66
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
+      m_X: 316
       m_Y: 357
-      m_Width: 52
+      m_Width: 61
       m_Height: 67
     m_Scale: 1
     m_AtlasIndex: 0
@@ -181,8 +181,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 73
+      m_X: 382
+      m_Y: 356
       m_Width: 49
       m_Height: 68
     m_Scale: 1
@@ -195,37 +195,37 @@ MonoBehaviour:
       m_HorizontalBearingY: 66
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 427
+      m_X: 438
+      m_Y: 352
       m_Width: 46
       m_Height: 66
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 274
     m_Metrics:
-      m_Width: 48.5
-      m_Height: 68.40625
-      m_HorizontalBearingX: 9.59375
+      m_Width: 57.27
+      m_Height: 77
+      m_HorizontalBearingX: 12.07
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 215
+      m_X: 270
+      m_Y: 275
       m_Width: 48
       m_Height: 68
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 275
     m_Metrics:
-      m_Width: 48.796875
-      m_Height: 68.40625
-      m_HorizontalBearingX: 9.40625
+      m_Width: 57.27
+      m_Height: 77
+      m_HorizontalBearingX: 12.07
       m_HorizontalBearingY: 67.203125
       m_HorizontalAdvance: 60
     m_GlyphRect:
-      m_X: 2
-      m_Y: 144
-      m_Width: 49
+      m_X: 341
+      m_Y: 269
+      m_Width: 48
       m_Height: 68
     m_Scale: 1
     m_AtlasIndex: 0
@@ -436,9 +436,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CustomFont Material
-  m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 128e987d567d4e2c824d754223b3f3b0, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - MASK_SOFT
+  - RATIOS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -479,7 +481,7 @@ Material:
     - _BumpFace: 0
     - _BumpOutline: 0
     - _ColorMask: 15
-    - _CullMode: 0
+    - _CullMode: 2
     - _Diffuse: 0.5
     - _FaceDilate: 0
     - _FaceUVSpeedX: 0
@@ -488,7 +490,7 @@ Material:
     - _GlowOffset: 0
     - _GlowOuter: 0.05
     - _GlowPower: 0.75
-    - _GradientScale: 2
+    - _GradientScale: 1.24
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
@@ -496,15 +498,15 @@ Material:
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
     - _OutlineWidth: 0
-    - _PerspectiveFilter: 0.875
+    - _PerspectiveFilter: 0.881
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.5
-    - _ScaleRatioB: 0.40625
-    - _ScaleRatioC: 0.40625
+    - _ScaleRatioA: 1
+    - _ScaleRatioB: 1
+    - _ScaleRatioC: 1
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
-    - _Sharpness: 0
+    - _Sharpness: 1
     - _SpecularPower: 2
     - _Stencil: 0
     - _StencilComp: 8
