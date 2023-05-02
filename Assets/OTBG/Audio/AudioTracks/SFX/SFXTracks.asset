@@ -14,4 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   folderLocation: Assets/OTBG/Audio/AudioTracks/SFX/AudioClipsSO
   allAudioClips:
+  - {fileID: 11400000, guid: 024fccb8baaa112418a9e1d64dd6f320, type: 2}
+  - {fileID: 11400000, guid: f7a4b5de5a2ec584ebf21628d7fccfaa, type: 2}
+  - {fileID: 11400000, guid: d7a1f562e54a9df4e998138519055e31, type: 2}
+  - {fileID: 11400000, guid: 5a4564ab7f87b0745a14deefccc4a3b5, type: 2}
+  - {fileID: 11400000, guid: 629c8258af10f8e428767d9d48355b53, type: 2}
+  - {fileID: 11400000, guid: f92e5f5df8291de4fb6a5ba02ca6c641, type: 2}
+  - {fileID: 11400000, guid: c519cbb1f535c294fa1c0dc897934391, type: 2}
+  - {fileID: 11400000, guid: 57d59939cd947974aa6f94ac6eed156d, type: 2}
+  - {fileID: 11400000, guid: 27fbb609af918214ca30f749917f8695, type: 2}
+  - {fileID: 11400000, guid: 334aec7a771d66e4fa911651fc9bc6a3, type: 2}
+  - {fileID: 11400000, guid: 83685c4178e9b2a49b1999acbb133fb7, type: 2}
   - {fileID: 11400000, guid: ae24af784d64a144c92cd77c6c48795c, type: 2}

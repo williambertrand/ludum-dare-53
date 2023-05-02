@@ -49,6 +49,12 @@ public class Enemy : Entity
         idleState = new EnemyIdleState(this, stateMachine, animator);
         hurtState = new EnemyHurtState(this, stateMachine, animator);
         stateMachine.Initialize(idleState);
+
+        if (priorityTarget == TargetPriorityType.Carriage)
+        {
+            SetTarget(CarriageController.Instance.gameObject);
+            stateMachine.ChangeState(combatState);
+        }
     }
 
     void Update()

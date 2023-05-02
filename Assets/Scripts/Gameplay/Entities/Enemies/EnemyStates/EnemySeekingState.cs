@@ -41,7 +41,6 @@ public class EnemySeekingState : EnemyState
             }
             else
             {
-                Debug.Log("Found Player");
                 self.SetTarget(PlayerMovementController.Instance.gameObject);
             }
         }

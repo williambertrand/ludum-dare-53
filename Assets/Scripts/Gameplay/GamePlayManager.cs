@@ -10,6 +10,7 @@ public class GamePlayManager : MonoSingleton<GamePlayManager>
     private void OnEnable()
     {
         PlayerController.OnHealthChanged += Entity_OnDamaged;
+        CarriageController.OnHealthChanged += Entity_OnDamaged;
     }
 
     private void Start()
@@ -28,16 +29,19 @@ public class GamePlayManager : MonoSingleton<GamePlayManager>
     {
         FadeLoader.Instance.LoadLevel(GameScenes.GAME_OVER_SCENE);
     }
+    
+    public void OnCarriageDeath()
+    {
+        FadeLoader.Instance.LoadLevel(GameScenes.GAME_OVER_SCENE);
+    }
 
     public void PlayAgain()
     {
-        Debug.Log("PLAY AGAIN!!!");
         FadeLoader.Instance.LoadLevel(GameScenes.GAMEPLAY_SCENE);
     }
     
     public void ReturnToMenu()
     {
-        Debug.Log("MENU!!!");
         FadeLoader.Instance.LoadLevel(GameScenes.MENU_SCENE);
     }
 
@@ -53,8 +57,11 @@ public class GamePlayManager : MonoSingleton<GamePlayManager>
         AudioManager.Instance.StopMusicTrack(MusicTrackIDs.BGM_GAMEPLAY);
     }
 
-
-
+    public void OnGameComplete()
+    {
+        FadeLoader.Instance.LoadLevel(GameScenes.MENU_SCENE);
+    }
+    
     private void Entity_OnDamaged(ValueChange change)
     {
         if (change.value <= 0)

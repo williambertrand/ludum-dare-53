@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: BGMTracks
   m_EditorClassIdentifier: 
   folderLocation: Assets/OTBG/Audio/AudioTracks/BGM/AudioClipsSO
-  allAudioClips: []
+  allAudioClips:
+  - {fileID: 11400000, guid: 790d05e18245e6e4bb8692dc7ed9083f, type: 2}
+  - {fileID: 11400000, guid: d09d5b1001cdb1446ac18d6b7a010c29, type: 2}
+  - {fileID: 11400000, guid: 97dd532efd00436418677edddea2e93e, type: 2}

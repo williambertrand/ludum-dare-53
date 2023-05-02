@@ -23,9 +23,14 @@ public class CarriageController : MonoSingleton<CarriageController>
     private Animator _animator;
     private Vector3 targetPosition;
 
+    private EntityHealthController _healthController;
+    
+    public static event Action<ValueChange> OnHealthChanged;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _healthController = GetComponent<EntityHealthController>();
         StartCoroutine(WaitForPlayer());
     }
 
@@ -33,6 +38,15 @@ public class CarriageController : MonoSingleton<CarriageController>
     {
         SpawnManager.OnAreaStarted += SpawnManager_OnAreaStarted;
         SpawnManager.OnAreaFinished += SpawnManager_OnAreaFinished;
+        _healthController.OnHealthChanged += CarriageOnHealthChanged;
+    }
+
+    private void CarriageOnHealthChanged(ValueChange valueChange)
+    {
+        if (valueChange.value <= 0)
+        {
+            GamePlayManager.Instance.OnCarriageDeath();
+        } 
     }
 
     void Start()
@@ -104,6 +118,5 @@ public class CarriageController : MonoSingleton<CarriageController>
     public void ToggleMovementAnim(bool isMoving)
     {
         _animator.SetBool("moving", isMoving);
-
     }
 }
